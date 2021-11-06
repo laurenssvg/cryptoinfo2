@@ -58,8 +58,8 @@ const Home = () => {
         {(showAll ? coins : myCoins)
           .filter(
             (coin) =>
-              coin.label.toLowerCase().includes(searchQuery) ||
-              coin.value.toLowerCase().includes(searchQuery)
+              coin.label.toLowerCase().includes(searchQuery.toLowerCase()) ||
+              coin.value.toLowerCase().includes(searchQuery.toLowerCase())
           )
           .map((filteredCoin, index) => (
             <CoinCard
