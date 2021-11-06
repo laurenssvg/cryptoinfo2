@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Header from "../components/Header";
 import useSWR from "swr";
 import CoinCard from "../components/CoinCard";
@@ -11,7 +11,8 @@ const Home = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const { data, error } = useSWR(
     "https://api.coingecko.com/api/v3/coins/markets?vs_currency=eur&order=market_cap_desc&per_page=100&page=1&sparkline=false",
-    fetcher
+    fetcher,
+    { refreshInterval: 30000 }
   );
   if (error) return <div>failed to load</div>;
   if (!data) return <div>loading...</div>;
@@ -22,13 +23,6 @@ const Home = () => {
     label: `${coin.name}`,
     current_price: coin.current_price,
   }));
-
-  useEffect(() => {
-    const filtered = coins.filter((coin) =>
-      coin.label.toLowerCase().includes(searchQuery)
-    );
-    setFilteredCoins(filtered);
-  }, [searchQuery]);
 
   return (
     <div>
@@ -43,9 +37,15 @@ const Home = () => {
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
         />
-        {filteredCoins?.map((coin) => (
-          <CoinCard key={coin.value} {...coin} />
-        ))}
+        {coins
+          .filter(
+            (coin) =>
+              coin.label.toLowerCase().includes(searchQuery) ||
+              coin.value.toLowerCase().includes(searchQuery)
+          )
+          .map((filteredCoin) => (
+            <CoinCard key={filteredCoin.value} {...filteredCoin} />
+          ))}
       </div>
     </div>
   );
