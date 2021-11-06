@@ -9,7 +9,7 @@ const CoinCard = ({ coin, setMyCoins, myCoins, showAll }) => {
   return (
     <article
       className={`p-4 border ${
-        addedToMyCoins(coin.label) && showAll ? "bg-green-50" : ""
+        addedToMyCoins(coin.label) && showAll ? "bg-green-50" : "bg-white"
       } border-gray-200 m-2 rounded-lg shadow-md`}
     >
       <div className="flex justify-between">

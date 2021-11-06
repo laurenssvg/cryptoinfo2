@@ -28,7 +28,7 @@ const Home = () => {
   }));
 
   return (
-    <div>
+    <div className="bg-gray-50 min-h-screen">
       <Header />
       <div className="max-w-3xl mx-auto md:max-w-xl lg:max-w-4xl">
         <input
