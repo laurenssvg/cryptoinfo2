@@ -22,6 +22,9 @@ const Home = () => {
     value: `${coin.id}`,
     label: `${coin.name}`,
     current_price: coin.current_price,
+    high_24h: coin.high_24h,
+    low_24h: coin.low_24h,
+    price_change_percentage_24h: coin.price_change_percentage_24h,
   }));
 
   return (
@@ -61,21 +64,23 @@ const Home = () => {
             My coins ({myCoins.length})
           </button>
         </div>
-        {(showAll ? coins : myCoins)
-          .filter(
-            (coin) =>
-              coin.label.toLowerCase().includes(searchQuery.toLowerCase()) ||
-              coin.value.toLowerCase().includes(searchQuery.toLowerCase())
-          )
-          .map((filteredCoin, index) => (
-            <CoinCard
-              key={index}
-              coin={filteredCoin}
-              setMyCoins={setMyCoins}
-              myCoins={myCoins}
-              showAll={showAll}
-            />
-          ))}
+        <div className="lg:grid lg:grid-cols-2 lg:grid-flow-row">
+          {(showAll ? coins : myCoins)
+            .filter(
+              (coin) =>
+                coin.label.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                coin.value.toLowerCase().includes(searchQuery.toLowerCase())
+            )
+            .map((filteredCoin, index) => (
+              <CoinCard
+                key={index}
+                coin={filteredCoin}
+                setMyCoins={setMyCoins}
+                myCoins={myCoins}
+                showAll={showAll}
+              />
+            ))}
+        </div>
       </div>
     </div>
   );

@@ -1,33 +1,33 @@
 import React from "react";
+import { HiArrowDown, HiArrowUp, HiPlus } from "react-icons/hi";
 
 const CoinCard = ({ coin, setMyCoins, myCoins, showAll }) => {
-  const coinExists = (label) => {
+  const addedToMyCoins = (label) => {
     return myCoins.some((coin) => coin.label === label);
   };
 
   return (
     <article
-      onClick={() => {
-        if (!coinExists(coin.label)) {
-          return setMyCoins((prevCoins) => [...prevCoins, coin]);
-        } else {
-          return;
-        }
-      }}
-      className={`flex p-4 border ${
-        coinExists(coin.label) && showAll ? "bg-green-50" : ""
-      } border-gray-200 space-x-4 m-5 rounded-xl shadow-sm hover:cursor-pointer hover:transition-all duration-500 ease-in-out  lg:hover:scale-105`}
+      className={`p-4 border ${
+        addedToMyCoins(coin.label) && showAll ? "bg-green-50" : ""
+      } border-gray-200 m-2 rounded-lg shadow-md`}
     >
-      <img
-        src={coin.image}
-        className="flex-none w-14 h-14 object-cover rounded-lg bg-gr"
-      />
-      <div className="flex justify-between min-w-0 relative flex-auto divide-x">
-        <h2 className="flex text-lg font-semibold items-center">
-          {coin.label}
-        </h2>
+      <div className="flex justify-between">
+        <div className="flex">
+          <img
+            className="flex w-14 h-14 object-cover rounded-lg"
+            src={coin.image}
+          />
 
-        <div className="text-lg font-semibold pr-2 flex items-center pl-5">
+          <h2 className="flex text-lg font-semibold items-center pl-5">
+            {coin.label}
+          </h2>
+        </div>
+        {addedToMyCoins(coin.label) && showAll ? (
+          <div className="flex text-lg font-light items-center">Added</div>
+        ) : null}
+
+        <div className="flex text-lg font-semibold items-center">
           {coin.current_price.toLocaleString("en-GB", {
             style: "currency",
             currency: "EUR",
@@ -36,9 +36,41 @@ const CoinCard = ({ coin, setMyCoins, myCoins, showAll }) => {
           })}
         </div>
       </div>
-      {coinExists(coin.label) && showAll ? (
-        <div className="flex text-lg font-semibold items-center">+</div>
-      ) : null}
+      <div className="flex justify-between">
+        <div
+          className={`${
+            coin.price_change_percentage_24h > 0
+              ? "text-green-500"
+              : "text-red-500"
+          } pt-5`}
+        >
+          {(coin.price_change_percentage_24h / 100).toLocaleString("en-GB", {
+            style: "percent",
+            minimumFractionDigits: 2,
+          })}
+        </div>
+        <div className="flex pt-5 mx-5 items-center">
+          <HiArrowUp style={{ color: "green" }} />
+          {coin.high_24h.toLocaleString("en-GB", { minimumFractionDigits: 2 })}
+        </div>
+        <div className="flex pt-5 items-center">
+          <HiArrowDown style={{ color: "red" }} />
+          {coin.low_24h.toLocaleString("en-GB", { minimumFractionDigits: 2 })}
+        </div>
+        {showAll ? (
+          <button className="flex pt-5 items-center text-xl hover:scale-110 hover:transform duration-200">
+            <HiPlus
+              onClick={() => {
+                if (!addedToMyCoins(coin.label)) {
+                  return setMyCoins((prevCoins) => [...prevCoins, coin]);
+                } else {
+                  return;
+                }
+              }}
+            />
+          </button>
+        ) : null}
+      </div>
     </article>
   );
 };
