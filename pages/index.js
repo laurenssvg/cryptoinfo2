@@ -42,7 +42,7 @@ const Home = () => {
             onClick={() => setShowAll(true)}
             className={`w-1/2 flex items-center justify-center rounded-full ${
               showAll ? "bg-blue-50" : ""
-            } bg-white font-semibold p-5 m-2 hover:bg-blue-50 hover:cursor-pointer hover:transition-all ease-in-out hover:scale-105`}
+            } font-semibold p-5 m-2 hover:bg-blue-50 hover:cursor-pointer hover:transition-all ease-in-out hover:scale-105`}
           >
             All coins
           </button>
@@ -50,7 +50,7 @@ const Home = () => {
             onClick={() => setShowAll(false)}
             className={`w-1/2 flex items-center justify-center rounded-full ${
               !showAll ? "bg-blue-50" : ""
-            } bg-white font-semibold p-5 m-2 hover:bg-blue-50 hover:cursor-pointer hover:transition-all ease-in-out hover:scale-105`}
+            } font-semibold p-5 m-2 hover:bg-blue-50 hover:cursor-pointer hover:transition-all ease-in-out hover:scale-105`}
           >
             My coins ({myCoins.length})
           </button>
