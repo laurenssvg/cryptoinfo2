@@ -23,9 +23,6 @@ const CoinCard = ({ coin, setMyCoins, myCoins, showAll }) => {
             {coin.label}
           </h2>
         </div>
-        {addedToMyCoins(coin.label) && showAll ? (
-          <div className="flex text-lg font-light items-center">Added</div>
-        ) : null}
 
         <div className="flex text-lg font-semibold items-center">
           {coin.current_price.toLocaleString("en-GB", {
@@ -51,11 +48,17 @@ const CoinCard = ({ coin, setMyCoins, myCoins, showAll }) => {
         </div>
         <div className="flex pt-5 mx-5 items-center">
           <HiArrowUp style={{ color: "green" }} />
-          {coin.high_24h.toLocaleString("en-GB", { minimumFractionDigits: 2 })}
+          {coin.high_24h.toLocaleString("en-GB", {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 10,
+          })}
         </div>
         <div className="flex pt-5 items-center">
           <HiArrowDown style={{ color: "red" }} />
-          {coin.low_24h.toLocaleString("en-GB", { minimumFractionDigits: 2 })}
+          {coin.low_24h.toLocaleString("en-GB", {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 10,
+          })}
         </div>
         {showAll ? (
           <button className="flex pt-5 items-center text-xl hover:scale-110 hover:transform duration-200">
