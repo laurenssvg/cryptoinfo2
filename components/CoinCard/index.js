@@ -65,7 +65,7 @@ const CoinCard = ({ coin, setMyCoins, myCoins, showAll }) => {
             <HiPlus
               onClick={() => {
                 if (!addedToMyCoins(coin.label)) {
-                  return setMyCoins((prevCoins) => [...prevCoins, coin]);
+                  return setMyCoins((otherCoins) => [...otherCoins, coin]);
                 } else {
                   return;
                 }
