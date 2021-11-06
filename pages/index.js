@@ -39,7 +39,10 @@ const Home = () => {
         />
         <div className="flex m-5">
           <button
-            onClick={() => setShowAll(true)}
+            onClick={() => {
+              setShowAll(true);
+              setSearchQuery("");
+            }}
             className={`w-1/2 flex items-center justify-center rounded-full ${
               showAll ? "bg-blue-50" : ""
             } font-semibold p-5 m-2 hover:bg-blue-50 hover:cursor-pointer hover:transition-all ease-in-out hover:scale-105`}
@@ -47,7 +50,10 @@ const Home = () => {
             All coins
           </button>
           <button
-            onClick={() => setShowAll(false)}
+            onClick={() => {
+              setShowAll(false);
+              setSearchQuery("");
+            }}
             className={`w-1/2 flex items-center justify-center rounded-full ${
               !showAll ? "bg-blue-50" : ""
             } font-semibold p-5 m-2 hover:bg-blue-50 hover:cursor-pointer hover:transition-all ease-in-out hover:scale-105`}
