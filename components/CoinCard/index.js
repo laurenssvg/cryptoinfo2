@@ -1,5 +1,5 @@
 import React from "react";
-import { HiArrowDown, HiArrowUp, HiPlus } from "react-icons/hi";
+import { HiArrowDown, HiArrowUp, HiMinus, HiPlus } from "react-icons/hi";
 
 const CoinCard = ({ coin, setMyCoins, myCoins, showAll }) => {
   const addedToMyCoins = (label) => {
@@ -72,7 +72,17 @@ const CoinCard = ({ coin, setMyCoins, myCoins, showAll }) => {
               }}
             />
           </button>
-        ) : null}
+        ) : (
+          <button className="flex pt-5 items-center text-xl hover:scale-110 hover:transform duration-200">
+            <HiMinus
+              onClick={() => {
+                setMyCoins(
+                  myCoins.filter((myCoin) => coin.label !== myCoin.label)
+                );
+              }}
+            />
+          </button>
+        )}
       </div>
     </article>
   );
