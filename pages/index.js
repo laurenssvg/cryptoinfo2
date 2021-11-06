@@ -27,7 +27,7 @@ const Home = () => {
   return (
     <div>
       <Header />
-      <div className="max-w-3xl mx-auto">
+      <div className="max-w-3xl mx-auto md:max-w-xl lg:max-w-4xl">
         <input
           className={`focus:border-light-blue-500 focus:ring-1 focus:ring-gray-300 focus:outline-none w-full text-md text-black placeholder-gray-500 border border-gray-200 rounded-lg pl-5 py-3
           `}

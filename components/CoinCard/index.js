@@ -16,7 +16,7 @@ const CoinCard = ({ coin, setMyCoins, myCoins, showAll }) => {
       }}
       className={`flex p-4 border ${
         coinExists(coin.label) && showAll ? "bg-green-50" : ""
-      } border-gray-200 space-x-4 m-5 rounded-xl shadow-sm hover:cursor-pointer hover:transition-all ease-in-out hover:scale-105`}
+      } border-gray-200 space-x-4 m-5 rounded-xl shadow-sm hover:cursor-pointer hover:transition-all duration-500 ease-in-out  lg:hover:scale-105`}
     >
       <img
         src={coin.image}
