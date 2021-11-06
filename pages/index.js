@@ -34,6 +34,7 @@ const Home = () => {
     high_24h: coin.high_24h,
     low_24h: coin.low_24h,
     price_change_percentage_24h: coin.price_change_percentage_24h,
+    added: false,
   }));
 
   if (error) return <div>failed to load</div>;
