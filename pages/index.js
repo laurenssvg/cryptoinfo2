@@ -59,8 +59,8 @@ const Home = () => {
               setSearchQuery("");
             }}
             className={`w-1/2 flex items-center justify-center rounded-full ${
-              showAll ? "bg-blue-50" : ""
-            } font-semibold p-5 m-2 hover:bg-blue-50 hover:cursor-pointer hover:transition-all ease-in-out hover:scale-105`}
+              showAll ? "bg-gray-100" : ""
+            } font-semibold p-5 m-2 hover:bg-gray-100 hover:cursor-pointer hover:transition-all ease-in-out hover:scale-105`}
           >
             All coins
           </button>
@@ -70,8 +70,8 @@ const Home = () => {
               setSearchQuery("");
             }}
             className={`w-1/2 flex items-center justify-center rounded-full ${
-              !showAll ? "bg-blue-50" : ""
-            } font-semibold p-5 m-2 hover:bg-blue-50 hover:cursor-pointer hover:transition-all ease-in-out hover:scale-105`}
+              !showAll ? "bg-gray-100" : ""
+            } font-semibold p-5 m-2 hover:bg-gray-100 hover:cursor-pointer hover:transition-all ease-in-out hover:scale-105`}
           >
             My coins ({myCoins.length})
           </button>
