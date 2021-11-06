@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 import { HiArrowDown, HiArrowUp, HiMinus, HiPlus } from "react-icons/hi";
 
 const CoinCard = ({ coin, setMyCoins, myCoins, showAll }) => {
@@ -14,10 +15,15 @@ const CoinCard = ({ coin, setMyCoins, myCoins, showAll }) => {
     >
       <div className="flex justify-between">
         <div className="flex">
-          <img
-            className="flex w-14 h-14 object-cover rounded-lg"
-            src={coin.image}
-          />
+          <div className="w-14 h-14 relative">
+            <Image
+              className="flex w-14 h-14 object-cover rounded-lg"
+              src={coin.image}
+              layout="fill"
+              objectFit="cover"
+              alt="coin image"
+            />
+          </div>
 
           <h2 className="flex text-lg font-semibold items-center pl-5">
             {coin.label}
