@@ -16,10 +16,6 @@ const Home = () => {
   const [showAll, setShowAll] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
 
-  useEffect(() => {
-    localStorage.setItem("myCoins", JSON.stringify(myCoins));
-  }, [myCoins]);
-
   const { data, error } = useSWR(
     "https://api.coingecko.com/api/v3/coins/markets?vs_currency=eur&order=market_cap_desc&per_page=100&page=1&sparkline=false",
     fetcher,
@@ -34,8 +30,11 @@ const Home = () => {
     high_24h: coin.high_24h,
     low_24h: coin.low_24h,
     price_change_percentage_24h: coin.price_change_percentage_24h,
-    added: false,
   }));
+
+  useEffect(() => {
+    localStorage.setItem("myCoins", JSON.stringify(myCoins));
+  }, [myCoins]);
 
   if (error) return <div>failed to load</div>;
   if (!data) return <div>loading...</div>;
