@@ -22,16 +22,6 @@ const Home = () => {
     { refreshInterval: 30000 }
   );
 
-  const coins = data?.map((coin) => ({
-    image: `${coin.image}`,
-    value: `${coin.id}`,
-    label: `${coin.name}`,
-    current_price: coin.current_price,
-    high_24h: coin.high_24h,
-    low_24h: coin.low_24h,
-    price_change_percentage_24h: coin.price_change_percentage_24h,
-  }));
-
   useEffect(() => {
     localStorage.setItem("myCoins", JSON.stringify(myCoins));
   }, [myCoins]);
@@ -40,7 +30,7 @@ const Home = () => {
   if (!data) return <div>loading...</div>;
 
   return (
-    <div className="bg-gray-50 min-h-screen">
+    <div className="bg-gray-50 min-h-screen w-screen">
       <Header />
       <div className="max-w-3xl mx-auto md:max-w-xl lg:max-w-4xl">
         <input
@@ -77,11 +67,11 @@ const Home = () => {
           </button>
         </div>
         <div className="lg:grid lg:grid-cols-2 lg:grid-flow-row">
-          {(showAll ? coins : myCoins)
+          {(showAll ? data : myCoins)
             .filter(
               (coin) =>
-                coin.label.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                coin.value.toLowerCase().includes(searchQuery.toLowerCase())
+                coin.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                coin.id.toLowerCase().includes(searchQuery.toLowerCase())
             )
             .map((filteredCoin, index) => (
               <CoinCard

@@ -4,7 +4,7 @@ import { HiArrowDown, HiArrowUp, HiMinus, HiPlus } from "react-icons/hi";
 
 const CoinCard = ({ coin, setMyCoins, myCoins, showAll }) => {
   const addedToMyCoins = (label) => {
-    return myCoins.some((coin) => coin.label === label);
+    return myCoins.some((coin) => coin.name === label);
   };
 
   return (
@@ -12,7 +12,7 @@ const CoinCard = ({ coin, setMyCoins, myCoins, showAll }) => {
       className={`p-4 border ${
         coin.price_change_percentage_24h > 0 ? "bg-green-50" : "bg-red-50"
       } ${
-        addedToMyCoins(coin.label) && showAll ? "border-green-500 border-2" : ""
+        addedToMyCoins(coin.name) && showAll ? "border-green-500 border-2" : ""
       } border-gray-200 m-2 rounded-lg shadow-md`}
     >
       <div className="flex justify-between">
@@ -28,7 +28,7 @@ const CoinCard = ({ coin, setMyCoins, myCoins, showAll }) => {
           </div>
 
           <h2 className="flex text-lg font-semibold items-center pl-5">
-            {coin.label}
+            {coin.name}
           </h2>
         </div>
 
@@ -72,7 +72,7 @@ const CoinCard = ({ coin, setMyCoins, myCoins, showAll }) => {
           <button className="flex pt-5 items-center text-xl hover:scale-110 hover:transform duration-200">
             <HiPlus
               onClick={() => {
-                if (!addedToMyCoins(coin.label)) {
+                if (!addedToMyCoins(coin.name)) {
                   return setMyCoins((otherCoins) => [...otherCoins, coin]);
                 } else {
                   return;
@@ -85,7 +85,7 @@ const CoinCard = ({ coin, setMyCoins, myCoins, showAll }) => {
             <HiMinus
               onClick={() => {
                 setMyCoins(
-                  myCoins.filter((myCoin) => coin.label !== myCoin.label)
+                  myCoins.filter((myCoin) => coin.name !== myCoin.name)
                 );
               }}
             />
