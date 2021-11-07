@@ -4,7 +4,7 @@ import { HiArrowDown, HiArrowUp, HiMinus, HiPlus } from "react-icons/hi";
 
 const CoinCard = ({ coin, setMyCoins, myCoins, showAll }) => {
   const addedToMyCoins = (name) => {
-    return myCoins.some((coin) => coin.name === name);
+    return myCoins.some((coin) => coin.name == name);
   };
 
   return (
