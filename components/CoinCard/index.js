@@ -3,8 +3,8 @@ import Image from "next/image";
 import { HiArrowDown, HiArrowUp, HiMinus, HiPlus } from "react-icons/hi";
 
 const CoinCard = ({ coin, setMyCoins, myCoins, showAll }) => {
-  const addedToMyCoins = (label) => {
-    return myCoins.some((coin) => coin.name === label);
+  const addedToMyCoins = (name) => {
+    return myCoins.some((coin) => coin.name === name);
   };
 
   return (
@@ -13,7 +13,7 @@ const CoinCard = ({ coin, setMyCoins, myCoins, showAll }) => {
         coin.price_change_percentage_24h > 0 ? "bg-green-50" : "bg-red-50"
       } ${
         addedToMyCoins(coin.name) && showAll ? "border-green-500 border-2" : ""
-      } border-gray-200 m-2 rounded-lg shadow-md`}
+      } border-gray-200 m-3 lg:m-2 rounded-lg shadow-md`}
     >
       <div className="flex justify-between">
         <div className="flex">

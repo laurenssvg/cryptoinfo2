@@ -1,9 +1,7 @@
 import { useEffect, useState } from "react";
 import Header from "../components/Header";
-import useSWR from "swr";
+import useCoins from "../hooks/useCoins";
 import CoinCard from "../components/CoinCard";
-
-const fetcher = (url) => fetch(url).then((res) => res.json());
 
 const Home = () => {
   const [myCoins, setMyCoins] = useState(() => {
@@ -13,21 +11,16 @@ const Home = () => {
       return initialValue || [];
     }
   });
+  const { coins, isLoading, isError } = useCoins("eur");
   const [showAll, setShowAll] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
-
-  const { data, error } = useSWR(
-    "https://api.coingecko.com/api/v3/coins/markets?vs_currency=eur&order=market_cap_desc&per_page=100&page=1&sparkline=false",
-    fetcher,
-    { refreshInterval: 30000 }
-  );
 
   useEffect(() => {
     localStorage.setItem("myCoins", JSON.stringify(myCoins));
   }, [myCoins]);
 
-  if (error) return <div>failed to load</div>;
-  if (!data) return <div>loading...</div>;
+  if (isError) return <div>failed to load</div>;
+  if (isLoading) return <div>loading...</div>;
 
   return (
     <div className="bg-gray-50 min-h-screen w-screen">
@@ -67,7 +60,7 @@ const Home = () => {
           </button>
         </div>
         <div className="lg:grid lg:grid-cols-2 lg:grid-flow-row">
-          {(showAll ? data : myCoins)
+          {(showAll ? coins : myCoins)
             .filter(
               (coin) =>
                 coin.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
