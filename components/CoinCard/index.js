@@ -91,16 +91,6 @@ const CoinCard = ({ coin, setMyCoins, myCoins, filteredCoins }) => {
             maximumFractionDigits: 10,
           })}
         </div>
-        <div className="flex pt-5 items-center text-[#406e35] dark:text-[#87c07b]">
-          <BiArrowToTop className="text-xl text-[#406e35] dark:text-[#87c07b]" />
-          <sup className="mr-1">ATH</sup>
-          {coin.ath.toLocaleString("en-GB", {
-            style: "currency",
-            currency: "EUR",
-            minimumFractionDigits: 2,
-            maximumFractionDigits: 10,
-          })}
-        </div>
         {!filteredCoins && !addedToMyCoins(coin.name) ? (
           <button className="flex pt-5 items-center text-xl hover:scale-110 hover:transform duration-200 text-[#3a6331] dark:text-[#87c07b]">
             <HiPlus
