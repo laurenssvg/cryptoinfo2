@@ -12,9 +12,12 @@ const Home = () => {
       return initialValue || [];
     }
   });
-  const { coins, isLoading, isError } = useCoins("eur");
+  const { coins, isLoading } = useCoins("eur");
+  const [filteredCoins, setFilteredCoins] = useState();
   const [showAll, setShowAll] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
+
+  const myFilteredCoins = coins?.filter((coin) => coin.id == "bitcoin");
 
   useEffect(() => {
     localStorage.setItem("myCoins", JSON.stringify(myCoins));
@@ -33,8 +36,8 @@ const Home = () => {
           <div className="flex m-5">
             <button
               onClick={() => {
-                setShowAll(true);
                 setSearchQuery("");
+                setFilteredCoins(null);
               }}
               className={`w-1/2 flex items-center justify-center rounded-full ${
                 showAll ? "bg-gray-100" : ""
@@ -44,8 +47,8 @@ const Home = () => {
             </button>
             <button
               onClick={() => {
-                setShowAll(false);
                 setSearchQuery("");
+                setFilteredCoins(myFilteredCoins);
               }}
               className={`w-1/2 flex items-center justify-center rounded-full ${
                 !showAll ? "bg-gray-100" : ""
@@ -55,7 +58,7 @@ const Home = () => {
             </button>
           </div>
           <div className="lg:grid lg:grid-cols-2 lg:grid-flow-row">
-            {(showAll ? coins : myCoins)
+            {(filteredCoins ? filteredCoins : coins)
               .filter(
                 (coin) =>
                   coin.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
