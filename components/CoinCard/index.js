@@ -1,6 +1,5 @@
 import Image from "next/image";
 import { HiArrowDown, HiArrowUp, HiMinus, HiPlus } from "react-icons/hi";
-import { BiArrowToTop } from "react-icons/bi";
 
 const CoinCard = ({ coin, setMyCoins, myCoins, filteredCoins }) => {
   const addedToMyCoins = (name) => {
@@ -21,7 +20,7 @@ const CoinCard = ({ coin, setMyCoins, myCoins, filteredCoins }) => {
         <div className="flex">
           <div className="w-14 h-14 relative">
             <Image
-              className="flex w-14 h-14 object-cover rounded-lg"
+              className="flex w-14 h-14 rounded-lg"
               src={coin.image}
               layout="fill"
               objectFit="cover"

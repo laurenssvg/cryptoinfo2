@@ -24,7 +24,6 @@ const Home = () => {
   );
 
   useEffect(() => {
-    console.log(globalData);
     localStorage.setItem("myCoins", JSON.stringify(myCoins));
   }, [myCoins]);
 
