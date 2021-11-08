@@ -10,7 +10,7 @@ const Header = () => {
       <GiTwoCoins className="flex text-4xl mx-2" />
       <span className="flex select-none">CryptoInfo</span>
       <button
-        className="flex"
+        className="flex text-3xl"
         onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
       >
         {theme === "dark" ? <MdOutlineDarkMode /> : <MdDarkMode />}

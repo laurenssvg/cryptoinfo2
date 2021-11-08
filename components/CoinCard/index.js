@@ -14,7 +14,7 @@ const CoinCard = ({ coin, setMyCoins, myCoins, filteredCoins }) => {
           : "bg-[#e29898] dark:bg-[#3d1515]"
       } ${
         addedToMyCoins(coin.name) && !filteredCoins ? "border-green-500" : ""
-      } m-3 lg:m-2 rounded-lg shadow-md`}
+      } m-3 lg:m-2 rounded-lg shadow-lg`}
     >
       <div className="flex justify-between">
         <div className="flex">
