@@ -26,7 +26,7 @@ const Home = () => {
 
   if (!isLoading) {
     return (
-      <div className="bg-gray-50 dark:bg-[#1a1a1a] min-h-screen w-screen">
+      <div className="bg-gray-50 dark:bg-[#252526] min-h-screen w-screen">
         <Header />
         <div className="max-w-3xl mx-auto md:max-w-xl lg:max-w-4xl">
           <SearchBar
@@ -41,8 +41,8 @@ const Home = () => {
                 setFilteredCoins(null);
               }}
               className={`w-1/2 flex items-center justify-center rounded-full ${
-                !filteredCoins ? "bg-gray-100 dark:bg-[#2e2e2e]" : ""
-              } font-semibold p-5 m-2 hover:bg-gray-100 dark:bg-[#1a1a1a] dark:hover:bg-[#2e2e2e] dark:text-gray-300 hover:cursor-pointer hover:transition-all ease-in-out hover:scale-105`}
+                !filteredCoins ? "bg-gray-100 dark:bg-[#343435]" : ""
+              } font-semibold p-5 m-2 hover:bg-gray-100 dark:bg-[#252526] dark:hover:bg-[#343435] dark:text-gray-300 hover:cursor-pointer hover:transition-all ease-in-out hover:scale-105`}
             >
               All coins
             </button>
@@ -52,8 +52,8 @@ const Home = () => {
                 setFilteredCoins(myFilteredCoins);
               }}
               className={`w-1/2 flex items-center justify-center rounded-full ${
-                filteredCoins ? "bg-gray-100 dark:bg-[#2e2e2e]" : ""
-              } font-semibold p-5 m-2 hover:bg-gray-100 dark:bg-[#1a1a1a] dark:hover:bg-[#2e2e2e] dark:text-gray-300 hover:cursor-pointer hover:transition-all ease-in-out hover:scale-105`}
+                filteredCoins ? "bg-gray-100 dark:bg-[#343435]" : ""
+              } font-semibold p-5 m-2 hover:bg-gray-100 dark:bg-[#252526] dark:hover:bg-[#343435] dark:text-gray-300 hover:cursor-pointer hover:transition-all ease-in-out hover:scale-105`}
             >
               My coins ({myCoins.length})
             </button>

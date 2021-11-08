@@ -8,15 +8,13 @@ const CoinCard = ({ coin, setMyCoins, myCoins, filteredCoins }) => {
 
   return (
     <article
-      className={`p-4 border ${
+      className={`p-4 ${
         coin.price_change_percentage_24h > 0
-          ? "bg-green-50 dark:bg-[#1E5128]"
-          : "bg-red-50 dark:bg-[#501212]"
+          ? "bg-[#ddeec8] dark:bg-[#1f3623]"
+          : "bg-[#e29898] dark:bg-[#3d1515]"
       } ${
-        addedToMyCoins(coin.name) && !filteredCoins
-          ? "border-yellow-500 border-2 dark:border-yellow-400"
-          : ""
-      } dark:text-gray-300 border-2 dark:border-gray-500 m-3 lg:m-2 rounded-lg shadow-md`}
+        addedToMyCoins(coin.name) && !filteredCoins ? "border-green-500" : ""
+      } m-3 lg:m-2 rounded-lg shadow-md`}
     >
       <div className="flex justify-between">
         <div className="flex">
@@ -30,12 +28,24 @@ const CoinCard = ({ coin, setMyCoins, myCoins, filteredCoins }) => {
             />
           </div>
 
-          <h2 className="flex text-lg font-semibold items-center pl-5">
+          <h2
+            className={`flex text-lg font-semibold items-center pl-5 ${
+              coin.price_change_percentage_24h > 0
+                ? "text-[#569049] dark:text-[#87c07b]"
+                : "text-[#8a2323] dark:text-[#bd6b6b]"
+            } `}
+          >
             {coin.name}
           </h2>
         </div>
 
-        <div className="flex text-lg font-semibold items-center">
+        <div
+          className={`flex text-lg font-semibold items-center ${
+            coin.price_change_percentage_24h > 0
+              ? "text-[#569049] dark:text-[#87c07b]"
+              : "text-[#8a2323] dark:text-[#bd6b6b]"
+          } `}
+        >
           {coin.current_price.toLocaleString("en-GB", {
             style: "currency",
             currency: "EUR",
@@ -48,8 +58,8 @@ const CoinCard = ({ coin, setMyCoins, myCoins, filteredCoins }) => {
         <div
           className={`${
             coin.price_change_percentage_24h > 0
-              ? "text-green-500 dark:text-green-100"
-              : "text-red-500 dark:text-red-300"
+              ? "text-[#569049] dark:text-[#87c07b]"
+              : "text-red-900 dark:text-red-300"
           } pt-5`}
         >
           {(coin.price_change_percentage_24h / 100).toLocaleString("en-GB", {
@@ -57,14 +67,16 @@ const CoinCard = ({ coin, setMyCoins, myCoins, filteredCoins }) => {
             minimumFractionDigits: 2,
           })}
         </div>
-        <div className="flex pt-5 mx-5 items-center">
+        <div
+          className={`flex pt-5 mx-5 items-center text-[#569049] dark:text-[#87c07b]`}
+        >
           <HiArrowUp style={{ color: "green" }} />
           {coin.high_24h.toLocaleString("en-GB", {
             minimumFractionDigits: 2,
             maximumFractionDigits: 10,
           })}
         </div>
-        <div className="flex pt-5 items-center">
+        <div className="flex pt-5 items-center text-[#8a2323] dark:text-[#bd6b6b]">
           <HiArrowDown style={{ color: "red" }} />
           {coin.low_24h.toLocaleString("en-GB", {
             minimumFractionDigits: 2,
@@ -72,7 +84,7 @@ const CoinCard = ({ coin, setMyCoins, myCoins, filteredCoins }) => {
           })}
         </div>
         {!filteredCoins && !addedToMyCoins(coin.name) ? (
-          <button className="flex pt-5 items-center text-xl hover:scale-110 hover:transform duration-200">
+          <button className="flex pt-5 items-center text-xl hover:scale-110 hover:transform duration-200 text-[#3a6331] dark:text-[#87c07b]">
             <HiPlus
               onClick={() => {
                 if (!addedToMyCoins(coin.name)) {
@@ -84,7 +96,7 @@ const CoinCard = ({ coin, setMyCoins, myCoins, filteredCoins }) => {
             />
           </button>
         ) : (
-          <button className="flex pt-5 items-center text-xl hover:scale-110 hover:transform duration-200">
+          <button className="flex pt-5 items-center text-xl hover:scale-110 hover:transform duration-200 text-[#8a2323] dark:text-[#bd6b6b]">
             <HiMinus
               onClick={() => {
                 setMyCoins(
