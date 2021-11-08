@@ -9,12 +9,14 @@ const CoinCard = ({ coin, setMyCoins, myCoins, filteredCoins }) => {
   return (
     <article
       className={`p-4 border ${
-        coin.price_change_percentage_24h > 0 ? "bg-green-50" : "bg-red-50"
+        coin.price_change_percentage_24h > 0
+          ? "bg-green-50 dark:bg-[#1E5128]"
+          : "bg-red-50 dark:bg-[#501212]"
       } ${
         addedToMyCoins(coin.name) && !filteredCoins
-          ? "border-yellow-500 border-2"
+          ? "border-yellow-500 border-2 dark:border-yellow-400"
           : ""
-      } border-2 m-3 lg:m-2 rounded-lg shadow-md`}
+      } dark:text-gray-300 border-2 dark:border-gray-500 m-3 lg:m-2 rounded-lg shadow-md`}
     >
       <div className="flex justify-between">
         <div className="flex">
@@ -46,8 +48,8 @@ const CoinCard = ({ coin, setMyCoins, myCoins, filteredCoins }) => {
         <div
           className={`${
             coin.price_change_percentage_24h > 0
-              ? "text-green-500"
-              : "text-red-500"
+              ? "text-green-500 dark:text-green-100"
+              : "text-red-500 dark:text-red-300"
           } pt-5`}
         >
           {(coin.price_change_percentage_24h / 100).toLocaleString("en-GB", {

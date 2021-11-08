@@ -1,16 +1,21 @@
 import React from "react";
 import { GiTwoCoins } from "react-icons/gi";
+import { MdDarkMode, MdOutlineDarkMode } from "react-icons/md";
+import { useTheme } from "next-themes";
 
 const Header = () => {
+  const { theme, setTheme } = useTheme();
   return (
-    <nav className="flex items-center p-6">
-      <div className="flex mx-auto items-center">
-        <span className="flex items-center font-semibold text-xl tracking-tight">
-          <GiTwoCoins className="text-4xl mx-2" />
-          CryptoInfo
-        </span>
-      </div>
-    </nav>
+    <div className="flex items-center justify-between font-semibold text-xl dark:text-gray-300 p-6 mx-5">
+      <GiTwoCoins className="flex text-4xl mx-2" />
+      <span className="flex select-none">CryptoInfo</span>
+      <button
+        className="flex"
+        onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+      >
+        {theme === "dark" ? <MdOutlineDarkMode /> : <MdDarkMode />}
+      </button>
+    </div>
   );
 };
 
