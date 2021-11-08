@@ -14,7 +14,6 @@ const Home = () => {
   });
   const { coins, isLoading } = useCoins("eur");
   const [filteredCoins, setFilteredCoins] = useState();
-  const [showAll, setShowAll] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
 
   const myFilteredCoins = coins?.filter((coin) =>
@@ -23,7 +22,7 @@ const Home = () => {
 
   useEffect(() => {
     localStorage.setItem("myCoins", JSON.stringify(myCoins));
-  }, [myCoins]);
+  }, [myCoins, filteredCoins]);
 
   if (!isLoading) {
     return (
@@ -33,7 +32,7 @@ const Home = () => {
           <SearchBar
             searchQuery={searchQuery}
             setSearchQuery={setSearchQuery}
-            showAll={showAll}
+            filteredCoins={filteredCoins}
           />
           <div className="flex m-5">
             <button
@@ -72,7 +71,7 @@ const Home = () => {
                   coin={filteredCoin}
                   setMyCoins={setMyCoins}
                   myCoins={myCoins}
-                  showAll={showAll}
+                  filteredCoins={filteredCoins}
                 />
               ))}
           </div>

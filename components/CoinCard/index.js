@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { HiArrowDown, HiArrowUp, HiMinus, HiPlus } from "react-icons/hi";
 
-const CoinCard = ({ coin, setMyCoins, myCoins, showAll }) => {
+const CoinCard = ({ coin, setMyCoins, myCoins, filteredCoins }) => {
   const addedToMyCoins = (name) => {
     return myCoins.some((coin) => coin.name == name);
   };
@@ -11,7 +11,9 @@ const CoinCard = ({ coin, setMyCoins, myCoins, showAll }) => {
       className={`p-4 border ${
         coin.price_change_percentage_24h > 0 ? "bg-green-50" : "bg-red-50"
       } ${
-        addedToMyCoins(coin.name) && showAll ? "border-yellow-500 border-2" : ""
+        addedToMyCoins(coin.name) && !filteredCoins
+          ? "border-yellow-500 border-2"
+          : ""
       } border-2 m-3 lg:m-2 rounded-lg shadow-md`}
     >
       <div className="flex justify-between">
@@ -67,7 +69,7 @@ const CoinCard = ({ coin, setMyCoins, myCoins, showAll }) => {
             maximumFractionDigits: 10,
           })}
         </div>
-        {showAll && !addedToMyCoins(coin.name) ? (
+        {!filteredCoins && !addedToMyCoins(coin.name) ? (
           <button className="flex pt-5 items-center text-xl hover:scale-110 hover:transform duration-200">
             <HiPlus
               onClick={() => {
