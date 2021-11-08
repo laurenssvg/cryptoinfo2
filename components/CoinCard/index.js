@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { HiArrowDown, HiArrowUp, HiMinus, HiPlus } from "react-icons/hi";
+import { BiArrowToTop } from "react-icons/bi";
 
 const CoinCard = ({ coin, setMyCoins, myCoins, filteredCoins }) => {
   const addedToMyCoins = (name) => {
@@ -11,7 +12,7 @@ const CoinCard = ({ coin, setMyCoins, myCoins, filteredCoins }) => {
       className={`p-4 ${
         coin.price_change_percentage_24h > 0
           ? "bg-[#ddeec8] dark:bg-[#1f3623]"
-          : "bg-[#e29898] dark:bg-[#3d1515]"
+          : "bg-[#c48585] dark:bg-[#3d1515]"
       } ${
         addedToMyCoins(coin.name) && !filteredCoins ? "border-green-500" : ""
       } m-3 lg:m-2 rounded-lg shadow-lg`}
@@ -62,23 +63,40 @@ const CoinCard = ({ coin, setMyCoins, myCoins, filteredCoins }) => {
               : "text-red-900 dark:text-red-300"
           } pt-5`}
         >
+          {coin.price_change_percentage_24h > 0 ? "+" : ""}
           {(coin.price_change_percentage_24h / 100).toLocaleString("en-GB", {
             style: "percent",
             minimumFractionDigits: 2,
           })}
         </div>
         <div
-          className={`flex pt-5 mx-5 items-center text-[#569049] dark:text-[#87c07b]`}
+          className={`flex pt-5 items-center text-[#406e35] dark:text-[#87c07b]`}
         >
-          <HiArrowUp style={{ color: "green" }} />
+          <HiArrowUp className="text-[#406e35] dark:text-[#87c07b]" />
+          <sup className="mr-1">24h</sup>
           {coin.high_24h.toLocaleString("en-GB", {
+            style: "currency",
+            currency: "EUR",
             minimumFractionDigits: 2,
             maximumFractionDigits: 10,
           })}
         </div>
         <div className="flex pt-5 items-center text-[#8a2323] dark:text-[#bd6b6b]">
-          <HiArrowDown style={{ color: "red" }} />
+          <HiArrowDown className="text-[#8a2323] dark:text-[#bd6b6b]" />
+          <sup className="mr-1">24h</sup>
           {coin.low_24h.toLocaleString("en-GB", {
+            style: "currency",
+            currency: "EUR",
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 10,
+          })}
+        </div>
+        <div className="flex pt-5 items-center text-[#406e35] dark:text-[#87c07b]">
+          <BiArrowToTop className="text-xl text-[#406e35] dark:text-[#87c07b]" />
+          <sup className="mr-1">ATH</sup>
+          {coin.ath.toLocaleString("en-GB", {
+            style: "currency",
+            currency: "EUR",
             minimumFractionDigits: 2,
             maximumFractionDigits: 10,
           })}

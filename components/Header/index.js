@@ -7,7 +7,9 @@ const Header = () => {
   const { theme, setTheme } = useTheme();
   return (
     <div className="flex items-center justify-between font-semibold text-xl dark:text-gray-300 p-6 mx-5">
-      <GiTwoCoins className="flex text-4xl mx-2" />
+      <button className="flex text-4xl mx-2">
+        <GiTwoCoins />
+      </button>
       <span className="flex select-none">CryptoInfo</span>
       <button
         className="flex text-3xl"

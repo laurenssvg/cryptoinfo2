@@ -2,17 +2,17 @@ import useSWR from "swr";
 
 const fetcher = (url) => fetch(url).then((res) => res.json());
 
-const useCoinInfo = (id) => {
+const useGlobalData = () => {
   const { data, error } = useSWR(
-    `https://api.coingecko.com/api/v3/coins/${id}`,
+    `https://api.coingecko.com/api/v3/global`,
     fetcher,
-    { refreshInterval: 30000 }
+    { refreshInterval: 60000 }
   );
   return {
-    coinInfo: data,
+    globalData: data,
     isLoading: !data && !error,
     isError: error,
   };
 };
 
-export default useCoinInfo;
+export default useGlobalData;
