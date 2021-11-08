@@ -64,7 +64,7 @@ const Home = () => {
           </div>
           <div className="dark:text-gray-300 font-light flex justify-center">
             The total market cap of all coins is currently:{" "}
-            {globalData.data.total_market_cap.eur.toLocaleString("en-GB", {
+            {globalData?.data.total_market_cap.eur.toLocaleString("en-GB", {
               style: "currency",
               currency: "EUR",
               minimumFractionDigits: 0,
