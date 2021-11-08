@@ -17,7 +17,9 @@ const Home = () => {
   const [showAll, setShowAll] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
 
-  const myFilteredCoins = coins?.filter((coin) => coin.id == "bitcoin");
+  const myFilteredCoins = coins?.filter((coin) =>
+    myCoins.find((myCoin) => myCoin.id == coin.id)
+  );
 
   useEffect(() => {
     localStorage.setItem("myCoins", JSON.stringify(myCoins));
@@ -40,7 +42,7 @@ const Home = () => {
                 setFilteredCoins(null);
               }}
               className={`w-1/2 flex items-center justify-center rounded-full ${
-                showAll ? "bg-gray-100" : ""
+                !filteredCoins ? "bg-gray-100" : ""
               } font-semibold p-5 m-2 hover:bg-gray-100 hover:cursor-pointer hover:transition-all ease-in-out hover:scale-105`}
             >
               All coins
@@ -51,7 +53,7 @@ const Home = () => {
                 setFilteredCoins(myFilteredCoins);
               }}
               className={`w-1/2 flex items-center justify-center rounded-full ${
-                !showAll ? "bg-gray-100" : ""
+                filteredCoins ? "bg-gray-100" : ""
               } font-semibold p-5 m-2 hover:bg-gray-100 hover:cursor-pointer hover:transition-all ease-in-out hover:scale-105`}
             >
               My coins ({myCoins.length})
