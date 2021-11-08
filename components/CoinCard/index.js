@@ -1,11 +1,5 @@
 import Image from "next/image";
-import {
-  HiArrowDown,
-  HiArrowUp,
-  HiMinus,
-  HiPlus,
-  HiCheck,
-} from "react-icons/hi";
+import { HiArrowDown, HiArrowUp, HiMinus, HiPlus } from "react-icons/hi";
 
 const CoinCard = ({ coin, setMyCoins, myCoins, showAll }) => {
   const addedToMyCoins = (name) => {

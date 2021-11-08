@@ -12,9 +12,14 @@ const Home = () => {
       return initialValue || [];
     }
   });
-  const { coins, isLoading, isError } = useCoins("eur");
+  const { coins, isLoading } = useCoins("eur");
+  const [filteredCoins, setFilteredCoins] = useState();
   const [showAll, setShowAll] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
+
+  const myFilteredCoins = coins?.filter((coin) =>
+    myCoins.find((myCoin) => myCoin.id == coin.id)
+  );
 
   useEffect(() => {
     localStorage.setItem("myCoins", JSON.stringify(myCoins));
@@ -33,29 +38,29 @@ const Home = () => {
           <div className="flex m-5">
             <button
               onClick={() => {
-                setShowAll(true);
                 setSearchQuery("");
+                setFilteredCoins(null);
               }}
               className={`w-1/2 flex items-center justify-center rounded-full ${
-                showAll ? "bg-gray-100" : ""
+                !filteredCoins ? "bg-gray-100" : ""
               } font-semibold p-5 m-2 hover:bg-gray-100 hover:cursor-pointer hover:transition-all ease-in-out hover:scale-105`}
             >
               All coins
             </button>
             <button
               onClick={() => {
-                setShowAll(false);
                 setSearchQuery("");
+                setFilteredCoins(myFilteredCoins);
               }}
               className={`w-1/2 flex items-center justify-center rounded-full ${
-                !showAll ? "bg-gray-100" : ""
+                filteredCoins ? "bg-gray-100" : ""
               } font-semibold p-5 m-2 hover:bg-gray-100 hover:cursor-pointer hover:transition-all ease-in-out hover:scale-105`}
             >
               My coins ({myCoins.length})
             </button>
           </div>
           <div className="lg:grid lg:grid-cols-2 lg:grid-flow-row">
-            {(showAll ? coins : myCoins)
+            {(filteredCoins ? filteredCoins : coins)
               .filter(
                 (coin) =>
                   coin.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
