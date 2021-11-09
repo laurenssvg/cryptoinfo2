@@ -15,6 +15,15 @@ const CoinCard = ({ coin, setMyCoins, myCoins, filteredCoins }) => {
     setExpanded(!expanded);
   };
 
+  const displayAsCurrency = (coin) => {
+    return coin.toLocaleString("en-GB", {
+      style: "currency",
+      currency: "EUR",
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 10,
+    });
+  };
+
   const addedToMyCoins = (name) => {
     return myCoins.some((coin) => coin.name == name);
   };
@@ -47,21 +56,27 @@ const CoinCard = ({ coin, setMyCoins, myCoins, filteredCoins }) => {
 
   const extraInfo = {
     expanded: {
+      display: "block",
+      scale: 1,
+      x: 0,
       transition: {
         duration: 0.125,
         type: "spring",
         damping: 10,
         mass: 0.6,
-        delay: 1,
+        delay: 0.5,
       },
     },
     notExpanded: {
+      display: "none",
+      scale: 0.9,
+      x: -25,
       transition: {
         duration: 0.125,
         type: "spring",
         damping: 10,
         mass: 0.6,
-        delay: 1,
+        delay: 0.5,
       },
     },
   };
@@ -130,29 +145,38 @@ const CoinCard = ({ coin, setMyCoins, myCoins, filteredCoins }) => {
                 : "text-[#8a2323] dark:text-[#bd6b6b]"
             } `}
           >
-            {coin.current_price.toLocaleString("en-GB", {
-              style: "currency",
-              currency: "EUR",
-              minimumFractionDigits: 2,
-              maximumFractionDigits: 10,
-            })}
+            {displayAsCurrency(coin.current_price)}
           </div>
         </motion.div>
         {expanded && (
           <motion.div
-            className="flex"
-            initial={{ display: "none", scale: 0.6 }}
-            animate={{ display: "block", scale: 1 }}
-            transition={{ delay: 0.5 }}
+            className="flex absolute"
+            initial={"notExpanded"}
+            animate={"expanded"}
+            variants={extraInfo}
           >
-            Hello Lorem ipsum dolor sit amet, consectetur adipisicing elit. Enim
-            odit amet harum facere eligendi illo quo fuga provident mollitia
-            asperiores non aspernatur impedit, blanditiis repellat totam
-            distinctio praesentium quod quaerat?
+            <ul
+              className={`flex ${
+                coin.price_change_percentage_24h > 0
+                  ? "text-[#569049] dark:text-[#87c07b]"
+                  : "text-[#491414] dark:text-[#bd6b6b]"
+              } ${
+                coin.price_change_percentage_24h > 0
+                  ? "bg-[#ddeec8] dark:bg-[#1f3623]"
+                  : "bg-[#c48585] dark:bg-[#3d1515]"
+              }`}
+            >
+              <li className="flex   p-2 rounded-lg m-3">
+                Market cap: {displayAsCurrency(coin.market_cap)}
+              </li>
+              <li className="flex  p-2 rounded-lg m-3">
+                All-time High: {displayAsCurrency(coin.ath)}
+              </li>
+            </ul>
           </motion.div>
         )}
         <motion.div
-          className="flex justify-between"
+          className="flex justify-between pt-5"
           animate={!expanded ? "notExpanded" : "expanded"}
           variants={text}
         >
@@ -161,7 +185,7 @@ const CoinCard = ({ coin, setMyCoins, myCoins, filteredCoins }) => {
               coin.price_change_percentage_24h > 0
                 ? "text-[#569049] dark:text-[#87c07b]"
                 : "text-red-900 dark:text-red-300"
-            } pt-5 items-center`}
+            } items-center`}
           >
             {coin.price_change_percentage_24h > 0 ? "+" : ""}
             {(coin.price_change_percentage_24h / 100).toLocaleString("en-GB", {
@@ -170,29 +194,19 @@ const CoinCard = ({ coin, setMyCoins, myCoins, filteredCoins }) => {
             })}
           </div>
           <div
-            className={`flex pt-5 items-center text-[#406e35] dark:text-[#87c07b]`}
+            className={`flex items-center text-[#406e35] dark:text-[#87c07b]`}
           >
             <HiArrowUp className="text-[#406e35] dark:text-[#87c07b]" />
             <sup className="mr-1">24h</sup>
-            {coin.high_24h.toLocaleString("en-GB", {
-              style: "currency",
-              currency: "EUR",
-              minimumFractionDigits: 2,
-              maximumFractionDigits: 10,
-            })}
+            {displayAsCurrency(coin.high_24h)}
           </div>
-          <div className="flex pt-5 items-center text-[#8a2323] dark:text-[#bd6b6b]">
+          <div className="flex items-center text-[#8a2323] dark:text-[#bd6b6b]">
             <HiArrowDown className="text-[#8a2323] dark:text-[#bd6b6b]" />
             <sup className="mr-1">24h</sup>
-            {coin.low_24h.toLocaleString("en-GB", {
-              style: "currency",
-              currency: "EUR",
-              minimumFractionDigits: 2,
-              maximumFractionDigits: 10,
-            })}
+            {displayAsCurrency(coin.low_24h)}
           </div>
           {!filteredCoins && !addedToMyCoins(coin.name) ? (
-            <button className="flex pt-5 items-center text-xl hover:scale-110 hover:transform duration-200 text-[#3a6331] dark:text-[#87c07b]">
+            <button className="flex items-center text-xl hover:scale-110 hover:transform duration-200 text-[#3a6331] dark:text-[#87c07b]">
               <HiPlus
                 onClick={(e) => {
                   e.stopPropagation();
@@ -205,7 +219,7 @@ const CoinCard = ({ coin, setMyCoins, myCoins, filteredCoins }) => {
               />
             </button>
           ) : (
-            <button className="object-cover flex pt-5 items-center text-xl hover:scale-110 hover:transform duration-200 text-[#8a2323] dark:text-[#bd6b6b]">
+            <button className="object-cover flex items-center text-xl hover:scale-110 hover:transform duration-200 text-[#8a2323] dark:text-[#bd6b6b]">
               <HiMinus
                 onClick={(e) => {
                   e.stopPropagation();
