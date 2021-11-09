@@ -90,7 +90,12 @@ const Home = () => {
         </div>
       </div>
     );
-  } else return <div>loading...</div>;
+  } else
+    return (
+      <div className="flex justify-center items-center h-screen text-xl">
+        loading...
+      </div>
+    );
 };
 
 export default Home;
