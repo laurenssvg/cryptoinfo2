@@ -62,7 +62,7 @@ const Home = () => {
             </button>
           </div>
           <div className="dark:text-gray-300 font-light flex justify-center">
-            The total market cap of all coins is currently:{" "}
+            Total market cap of all coins:{" "}
             {globalData?.data.total_market_cap.eur.toLocaleString("en-GB", {
               style: "currency",
               currency: "EUR",

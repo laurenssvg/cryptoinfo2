@@ -6,15 +6,39 @@ import {
   HiPlus,
   HiCheck,
 } from "react-icons/hi";
+import { VscClose } from "react-icons/vsc";
+import { motion, useAnimation } from "framer-motion";
+import { useState } from "react";
 
 const CoinCard = ({ coin, setMyCoins, myCoins, filteredCoins }) => {
+  const [expanded, setExpanded] = useState(false);
+  const handleTap = () => {
+    expanded
+      ? controls.start() && setExpanded(!expanded)
+      : setExpanded(!expanded);
+  };
+  const controls = useAnimation();
+
   const addedToMyCoins = (name) => {
     return myCoins.some((coin) => coin.name == name);
   };
+  const variants = {
+    active: {
+      height: 200,
+      transition: { duration: 0.125, type: "spring", damping: 10, mass: 0.6 },
+    },
+    inactive: {
+      height: 130,
+      transition: { duration: 0.125, type: "spring", damping: 10, mass: 0.6 },
+    },
+  };
 
   return (
-    <article
-      className={`p-4 relative ${
+    <motion.article
+      animate={expanded ? "active" : "inactive"}
+      onClick={handleTap}
+      variants={variants}
+      className={`p-4 relative cursor-pointer ${
         coin.price_change_percentage_24h > 0
           ? "bg-[#ddeec8] dark:bg-[#1f3623]"
           : "bg-[#c48585] dark:bg-[#3d1515]"
@@ -106,7 +130,8 @@ const CoinCard = ({ coin, setMyCoins, myCoins, filteredCoins }) => {
         {!filteredCoins && !addedToMyCoins(coin.name) ? (
           <button className="flex pt-5 items-center text-xl hover:scale-110 hover:transform duration-200 text-[#3a6331] dark:text-[#87c07b]">
             <HiPlus
-              onClick={() => {
+              onClick={(e) => {
+                e.stopPropagation();
                 if (!addedToMyCoins(coin.name)) {
                   return setMyCoins((otherCoins) => [...otherCoins, coin]);
                 } else {
@@ -116,9 +141,10 @@ const CoinCard = ({ coin, setMyCoins, myCoins, filteredCoins }) => {
             />
           </button>
         ) : (
-          <button className="flex pt-5 items-center text-xl hover:scale-110 hover:transform duration-200 text-[#8a2323] dark:text-[#bd6b6b]">
+          <button className="object-cover flex pt-5 items-center text-xl hover:scale-110 hover:transform duration-200 text-[#8a2323] dark:text-[#bd6b6b]">
             <HiMinus
-              onClick={() => {
+              onClick={(e) => {
+                e.stopPropagation();
                 setMyCoins(
                   myCoins.filter((myCoin) => coin.name !== myCoin.name)
                 );
@@ -127,7 +153,7 @@ const CoinCard = ({ coin, setMyCoins, myCoins, filteredCoins }) => {
           </button>
         )}
       </div>
-    </article>
+    </motion.article>
   );
 };
 
