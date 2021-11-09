@@ -6,47 +6,73 @@ import {
   HiPlus,
   HiCheck,
 } from "react-icons/hi";
-import { AnimatePresence, motion, useAnimation } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
 
 const CoinCard = ({ coin, setMyCoins, myCoins, filteredCoins }) => {
   const [expanded, setExpanded] = useState(false);
   const handleTap = () => {
-    expanded
-      ? controls.start() && setExpanded(!expanded)
-      : setExpanded(!expanded);
+    setExpanded(!expanded);
   };
-  const controls = useAnimation();
 
   const addedToMyCoins = (name) => {
     return myCoins.some((coin) => coin.name == name);
   };
-  const variants = {
-    active: {
+  const card = {
+    expanded: {
       height: 250,
+      transition: {
+        duration: 0.125,
+        type: "spring",
+        damping: 10,
+        mass: 0.6,
+      },
+    },
+    notExpanded: {
+      height: 130,
       transition: { duration: 0.125, type: "spring", damping: 10, mass: 0.6 },
     },
-    inactive: {
-      height: 130,
+  };
+
+  const text = {
+    expanded: {
+      y: 120,
       transition: { duration: 0.125, type: "spring", damping: 10, mass: 0.6 },
     },
     notExpanded: {
       y: 0,
       transition: { duration: 0.125, type: "spring", damping: 10, mass: 0.6 },
     },
+  };
+
+  const extraInfo = {
     expanded: {
-      y: 110,
-      transition: { duration: 0.125, type: "spring", damping: 10, mass: 0.6 },
+      transition: {
+        duration: 0.125,
+        type: "spring",
+        damping: 10,
+        mass: 0.6,
+        delay: 1,
+      },
+    },
+    notExpanded: {
+      transition: {
+        duration: 0.125,
+        type: "spring",
+        damping: 10,
+        mass: 0.6,
+        delay: 1,
+      },
     },
   };
 
   return (
     <AnimatePresence>
       <motion.article
-        animate={expanded ? "active" : "inactive"}
+        animate={expanded ? "expanded" : "notExpanded"}
         onClick={handleTap}
-        variants={variants}
-        className={`p-4 relative cursor-pointer ${
+        variants={card}
+        className={`p-4 relative select-none cursor-pointer ${
           coin.price_change_percentage_24h > 0
             ? "bg-[#ddeec8] dark:bg-[#1f3623]"
             : "bg-[#c48585] dark:bg-[#3d1515]"
@@ -54,7 +80,7 @@ const CoinCard = ({ coin, setMyCoins, myCoins, filteredCoins }) => {
           addedToMyCoins(coin.name) && !filteredCoins ? "border-green-500" : ""
         } m-3 lg:m-2 rounded-lg shadow-lg`}
       >
-        <div className="flex justify-between ">
+        <motion.div className="flex justify-between ">
           <div className="flex">
             <div className="w-14 h-14 relative">
               <Image
@@ -111,11 +137,24 @@ const CoinCard = ({ coin, setMyCoins, myCoins, filteredCoins }) => {
               maximumFractionDigits: 10,
             })}
           </div>
-        </div>
+        </motion.div>
+        {expanded && (
+          <motion.div
+            className="flex"
+            initial={{ display: "none", scale: 0.6 }}
+            animate={{ display: "block", scale: 1 }}
+            transition={{ delay: 0.5 }}
+          >
+            Hello Lorem ipsum dolor sit amet, consectetur adipisicing elit. Enim
+            odit amet harum facere eligendi illo quo fuga provident mollitia
+            asperiores non aspernatur impedit, blanditiis repellat totam
+            distinctio praesentium quod quaerat?
+          </motion.div>
+        )}
         <motion.div
           className="flex justify-between"
           animate={!expanded ? "notExpanded" : "expanded"}
-          variants={variants}
+          variants={text}
         >
           <div
             className={`flex ${

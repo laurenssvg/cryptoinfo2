@@ -8,7 +8,7 @@ class MyDocument extends Document {
 
   render() {
     return (
-      <Html>
+      <Html style={{ WebkitTapHighlightColor: "transparent" }}>
         <Head />
         <body>
           <Main />
