@@ -14,7 +14,6 @@ const Home = () => {
     }
   });
   const { globalData } = useGlobalData();
-  const [filter, setFilter] = useState("");
   const { coins, isLoading } = useCoins("eur");
   const [filteredCoins, setFilteredCoins] = useState();
   const [searchQuery, setSearchQuery] = useState("");
