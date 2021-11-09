@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "eslint-plugin-react-hooks": "^4.2.1-alpha-ee069065d-20211105",
+    "framer-motion": "^5.2.1",
     "next": "latest",
     "next-themes": "^0.0.15",
     "prettier": "^2.4.1",

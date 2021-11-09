@@ -1,5 +1,11 @@
 import Image from "next/image";
-import { HiArrowDown, HiArrowUp, HiMinus, HiPlus } from "react-icons/hi";
+import {
+  HiArrowDown,
+  HiArrowUp,
+  HiMinus,
+  HiPlus,
+  HiCheck,
+} from "react-icons/hi";
 
 const CoinCard = ({ coin, setMyCoins, myCoins, filteredCoins }) => {
   const addedToMyCoins = (name) => {
@@ -8,7 +14,7 @@ const CoinCard = ({ coin, setMyCoins, myCoins, filteredCoins }) => {
 
   return (
     <article
-      className={`p-4 ${
+      className={`p-4 relative ${
         coin.price_change_percentage_24h > 0
           ? "bg-[#ddeec8] dark:bg-[#1f3623]"
           : "bg-[#c48585] dark:bg-[#3d1515]"
@@ -16,7 +22,7 @@ const CoinCard = ({ coin, setMyCoins, myCoins, filteredCoins }) => {
         addedToMyCoins(coin.name) && !filteredCoins ? "border-green-500" : ""
       } m-3 lg:m-2 rounded-lg shadow-lg`}
     >
-      <div className="flex justify-between">
+      <div className="flex justify-between ">
         <div className="flex">
           <div className="w-14 h-14 relative">
             <Image
@@ -28,7 +34,7 @@ const CoinCard = ({ coin, setMyCoins, myCoins, filteredCoins }) => {
             />
           </div>
 
-          <h2
+          <div
             className={`flex text-lg font-semibold items-center pl-5 ${
               coin.price_change_percentage_24h > 0
                 ? "text-[#569049] dark:text-[#87c07b]"
@@ -36,9 +42,16 @@ const CoinCard = ({ coin, setMyCoins, myCoins, filteredCoins }) => {
             } `}
           >
             {coin.name}
-          </h2>
+          </div>
         </div>
-
+        {addedToMyCoins(coin.name) && !filteredCoins ? (
+          <div className="flex absolute inset-x-0 top-0 justify-center text-xs">
+            <span className="flex bg-[#569049] rounded-md p-1 text-[#ddeec8]">
+              <HiCheck className="flex mt-0.5" />
+              Added to my coins
+            </span>
+          </div>
+        ) : null}
         <div
           className={`flex text-lg font-semibold items-center ${
             coin.price_change_percentage_24h > 0
