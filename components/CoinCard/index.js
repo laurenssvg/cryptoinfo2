@@ -206,21 +206,22 @@ const CoinCard = ({ coin, setMyCoins, myCoins, filteredCoins }) => {
             <motion.div
               initial={{ opacity: 0 }}
               animate={expanded ? "expanded" : "notExpanded"}
-              className={`flex`}
               variants={extraInfo}
+              className={`flex items-center text-[#406e35] dark:text-[#87c07b]`}
             >
-              <div
-                className={`flex items-center text-[#406e35] dark:text-[#87c07b]`}
-              >
-                <HiArrowUp className="text-[#406e35] dark:text-[#87c07b]" />
-                <sup className="mr-1">24h</sup>
-                {formatPrice(coin.high_24h, 8)}
-              </div>
-              <div className="flex items-center text-[#8a2323] dark:text-[#bd6b6b]">
-                <HiArrowDown className="text-[#8a2323] dark:text-[#bd6b6b]" />
-                <sup className="mr-1">24h</sup>
-                {formatPrice(coin.low_24h, 8)}
-              </div>
+              <HiArrowUp className="text-[#406e35] dark:text-[#87c07b]" />
+              <sup className="mr-1">24h</sup>
+              {formatPrice(coin.high_24h, 8)}
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={expanded ? "expanded" : "notExpanded"}
+              variants={extraInfo}
+              className="flex items-center text-[#8a2323] dark:text-[#bd6b6b]"
+            >
+              <HiArrowDown className="text-[#8a2323] dark:text-[#bd6b6b]" />
+              <sup className="mr-1">24h</sup>
+              {formatPrice(coin.low_24h, 8)}
             </motion.div>
 
             {!filteredCoins && !addedToMyCoins(coin.name) ? (
