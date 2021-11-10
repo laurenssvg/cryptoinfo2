@@ -109,13 +109,13 @@ const CoinCard = ({ coin, setMyCoins, myCoins, filteredCoins }) => {
                   mass: 0.6,
                   delay: 0.2,
                 }}
-                className={`flex absolute bottom-5 inset-x-0 justify-center font-semibold text-xl ${
+                className={`flex absolute bottom-4 inset-x-0 justify-center font-semibold text-xl ${
                   coin.price_change_percentage_24h > 0
                     ? "text-[#569049] dark:text-[#87c07b]"
                     : "text-[#8a2323] dark:text-[#bd6b6b]"
                 }`}
               >
-                Worth of coins: {formatPrice(amount * coin.current_price, 8)}
+                {formatPrice(amount * coin.current_price, 8)}
               </motion.div>
             )}
           </AnimatePresence>
