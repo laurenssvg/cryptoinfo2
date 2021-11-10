@@ -204,6 +204,7 @@ const CoinCard = ({ coin, setMyCoins, myCoins, filteredCoins }) => {
               )}
             </div>
             <motion.div
+              initial={{ opacity: 0 }}
               animate={expanded ? "expanded" : "notExpanded"}
               className={`flex`}
               variants={extraInfo}
