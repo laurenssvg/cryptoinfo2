@@ -151,7 +151,7 @@ const CoinCard = ({ coin, setMyCoins, myCoins, filteredCoins }) => {
           </motion.div>
           {expanded && (
             <motion.div
-              className="absolute bottom-20 w-11/12 flex flex-col"
+              className="flex flex-col absolute inset-x-0 bottom-20"
               initial={"notExpanded"}
               animate={"expanded"}
               variants={extraInfo}
@@ -168,17 +168,19 @@ const CoinCard = ({ coin, setMyCoins, myCoins, filteredCoins }) => {
                 onChange={(e) => setAmount(e.target.value)}
                 onClick={(e) => e.stopPropagation()}
               />
-              {amount && (
-                <motion.div
-                  className={`flex text-xl font-semibold mx-auto ${
-                    coin.price_change_percentage_24h > 0
-                      ? "text-[#569049] dark:text-[#87c07b]"
-                      : "text-[#8a2323] dark:text-[#bd6b6b]"
-                  }`}
-                >
-                  {formatPrice(coin.current_price * amount, 2)}
-                </motion.div>
-              )}
+
+              <div
+                className={`flex text-xl font-semibold mx-auto ${
+                  coin.price_change_percentage_24h > 0
+                    ? "text-[#569049] dark:text-[#87c07b]"
+                    : "text-[#8a2323] dark:text-[#bd6b6b]"
+                }`}
+              >
+                Total worth:{" "}
+                {amount
+                  ? formatPrice(coin.current_price * amount, 2)
+                  : `${formatPrice(0)}`}
+              </div>
             </motion.div>
           )}
           <motion.div
