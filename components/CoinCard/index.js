@@ -59,7 +59,7 @@ const CoinCard = ({ coin, setMyCoins, myCoins, filteredCoins }) => {
 
   const extraInfo = {
     expanded: {
-      display: "block",
+      opacity: 1,
       scale: 1,
       transition: {
         duration: 0.125,
@@ -70,7 +70,7 @@ const CoinCard = ({ coin, setMyCoins, myCoins, filteredCoins }) => {
       },
     },
     notExpanded: {
-      display: "none",
+      opacity: 0,
       scale: 0.6,
       transition: {
         duration: 0.125,
@@ -96,11 +96,11 @@ const CoinCard = ({ coin, setMyCoins, myCoins, filteredCoins }) => {
               : "bg-[#c48585] dark:bg-[#3d1515]"
           } m-3 lg:m-2 rounded-lg shadow-lg`}
         >
-          <motion.div className="flex justify-between ">
+          <motion.div className="flex justify-between">
             <div className="flex">
               <div className="w-14 h-14 relative">
                 <Image
-                  className="flex w-14 h-14 rounded-lg"
+                  className="flex rounded-lg"
                   src={coin.image}
                   layout="fill"
                   objectFit="cover"
@@ -151,36 +151,34 @@ const CoinCard = ({ coin, setMyCoins, myCoins, filteredCoins }) => {
           </motion.div>
           {expanded && (
             <motion.div
+              className="absolute bottom-20 w-11/12 flex flex-col"
               initial={"notExpanded"}
               animate={"expanded"}
               variants={extraInfo}
             >
-              <motion.div className="flex absolute">
-                <input
-                  placeholder="Enter amount"
-                  type="number"
-                  value={amount}
-                  onChange={(e) => setAmount(e.target.value)}
-                  className={`flex rounded-lg spin-button-none ${
+              <motion.input
+                className={`flex py-2 mx-auto rounded-lg spin-button-none ${
+                  coin.price_change_percentage_24h > 0
+                    ? "dark:bg-[#ddeec8] bg-[#68a55b] placeholder-[#ddeec8] text-[#ddeec8] dark:placeholder-[#124b1b] dark:text-[#124b1b]"
+                    : "dark:bg-[#c48585] bg-[#8a2f2f] placeholder-[#eec9c8] text-[#eec9c8] dark:placeholder-[#702626] dark:text-[#702626]"
+                } focus:outline-none text-center`}
+                placeholder="Enter amount"
+                type="number"
+                value={amount}
+                onChange={(e) => setAmount(e.target.value)}
+                onClick={(e) => e.stopPropagation()}
+              />
+              {amount && (
+                <motion.div
+                  className={`flex text-xl font-semibold mx-auto ${
                     coin.price_change_percentage_24h > 0
-                      ? "dark:bg-[#ddeec8] bg-[#68a55b] placeholder-[#ddeec8] text-[#ddeec8] dark:placeholder-[#124b1b] dark:text-[#124b1b]"
-                      : "dark:bg-[#c48585] bg-[#8a2f2f] placeholder-[#eec9c8] text-[#eec9c8] dark:placeholder-[#702626] dark:text-[#702626]"
-                  } focus:outline-none text-center`}
-                  onClick={(e) => e.stopPropagation()}
-                />
-                {amount && (
-                  <span
-                    className={`flex flex-col text-xl font-semibold items-center ${
-                      coin.price_change_percentage_24h > 0
-                        ? "text-[#569049] dark:text-[#87c07b]"
-                        : "text-[#8a2323] dark:text-[#bd6b6b]"
-                    }`}
-                  >
-                    <span>Total worth: </span>
-                    <span>{formatPrice(coin.current_price * amount, 2)}</span>
-                  </span>
-                )}
-              </motion.div>
+                      ? "text-[#569049] dark:text-[#87c07b]"
+                      : "text-[#8a2323] dark:text-[#bd6b6b]"
+                  }`}
+                >
+                  {formatPrice(coin.current_price * amount, 2)}
+                </motion.div>
+              )}
             </motion.div>
           )}
           <motion.div
@@ -209,12 +207,12 @@ const CoinCard = ({ coin, setMyCoins, myCoins, filteredCoins }) => {
             >
               <HiArrowUp className="text-[#406e35] dark:text-[#87c07b]" />
               <sup className="mr-1">24h</sup>
-              {formatPrice(coin.high_24h)}
+              {formatPrice(coin.high_24h, 8)}
             </div>
             <div className="flex items-center text-[#8a2323] dark:text-[#bd6b6b]">
               <HiArrowDown className="text-[#8a2323] dark:text-[#bd6b6b]" />
               <sup className="mr-1">24h</sup>
-              {formatPrice(coin.low_24h)}
+              {formatPrice(coin.low_24h, 8)}
             </div>
             {!filteredCoins && !addedToMyCoins(coin.name) ? (
               <button className="flex items-center text-xl hover:scale-110 hover:transform duration-200 text-[#3a6331] dark:text-[#87c07b]">
