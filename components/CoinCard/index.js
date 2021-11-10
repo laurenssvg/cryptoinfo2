@@ -96,6 +96,29 @@ const CoinCard = ({ coin, setMyCoins, myCoins, filteredCoins }) => {
               : "bg-[#c48585] dark:bg-[#3d1515]"
           } m-3 lg:m-2 rounded-lg shadow-lg`}
         >
+          <AnimatePresence>
+            {amount && !expanded && (
+              <motion.div
+                initial={{ opacity: 0, scale: 0.6 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.6 }}
+                transition={{
+                  duration: 0.125,
+                  type: "spring",
+                  damping: 10,
+                  mass: 0.6,
+                  delay: 0.2,
+                }}
+                className={`flex absolute bottom-5 inset-x-0 justify-center font-semibold text-xl ${
+                  coin.price_change_percentage_24h > 0
+                    ? "text-[#569049] dark:text-[#87c07b]"
+                    : "text-[#8a2323] dark:text-[#bd6b6b]"
+                }`}
+              >
+                Worth of coins: {formatPrice(amount * coin.current_price, 8)}
+              </motion.div>
+            )}
+          </AnimatePresence>
           <motion.div className="flex justify-between">
             <div className="flex">
               <div className="w-14 h-14 relative">
