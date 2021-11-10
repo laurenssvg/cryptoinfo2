@@ -151,7 +151,7 @@ const CoinCard = ({ coin, setMyCoins, myCoins, filteredCoins }) => {
           </motion.div>
           {expanded && (
             <motion.div
-              className="flex flex-col absolute inset-x-0 bottom-20"
+              className="flex flex-col absolute inset-x-0 bottom-16"
               initial={"notExpanded"}
               animate={"expanded"}
               variants={extraInfo}
@@ -168,7 +168,7 @@ const CoinCard = ({ coin, setMyCoins, myCoins, filteredCoins }) => {
                 onChange={(e) => setAmount(e.target.value)}
                 onClick={(e) => e.stopPropagation()}
               />
-
+              <span className="flex mx-auto text-xl">=</span>
               <div
                 className={`flex text-xl font-semibold mx-auto ${
                   coin.price_change_percentage_24h > 0
@@ -176,7 +176,6 @@ const CoinCard = ({ coin, setMyCoins, myCoins, filteredCoins }) => {
                     : "text-[#8a2323] dark:text-[#bd6b6b]"
                 }`}
               >
-                Total worth:{" "}
                 {amount
                   ? formatPrice(coin.current_price * amount, 2)
                   : `${formatPrice(0)}`}
@@ -204,18 +203,25 @@ const CoinCard = ({ coin, setMyCoins, myCoins, filteredCoins }) => {
                 }
               )}
             </div>
-            <div
-              className={`flex items-center text-[#406e35] dark:text-[#87c07b]`}
+            <motion.div
+              animate={expanded ? "expanded" : "notExpanded"}
+              className={`flex`}
+              variants={extraInfo}
             >
-              <HiArrowUp className="text-[#406e35] dark:text-[#87c07b]" />
-              <sup className="mr-1">24h</sup>
-              {formatPrice(coin.high_24h, 8)}
-            </div>
-            <div className="flex items-center text-[#8a2323] dark:text-[#bd6b6b]">
-              <HiArrowDown className="text-[#8a2323] dark:text-[#bd6b6b]" />
-              <sup className="mr-1">24h</sup>
-              {formatPrice(coin.low_24h, 8)}
-            </div>
+              <div
+                className={`flex items-center mx-5 text-[#406e35] dark:text-[#87c07b]`}
+              >
+                <HiArrowUp className="text-[#406e35] dark:text-[#87c07b]" />
+                <sup className="mr-1">24h</sup>
+                {formatPrice(coin.high_24h, 8)}
+              </div>
+              <div className="flex items-center mx-5 text-[#8a2323] dark:text-[#bd6b6b]">
+                <HiArrowDown className="text-[#8a2323] dark:text-[#bd6b6b]" />
+                <sup className="mr-1">24h</sup>
+                {formatPrice(coin.low_24h, 8)}
+              </div>
+            </motion.div>
+
             {!filteredCoins && !addedToMyCoins(coin.name) ? (
               <button className="flex items-center text-xl hover:scale-110 hover:transform duration-200 text-[#3a6331] dark:text-[#87c07b]">
                 <HiPlus
