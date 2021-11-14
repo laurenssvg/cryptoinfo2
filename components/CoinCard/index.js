@@ -11,7 +11,7 @@ import { useState } from "react";
 
 const CoinCard = ({ coin, setMyCoins, myCoins, filteredCoins }) => {
   const [expanded, setExpanded] = useState(false);
-  const [amount, setAmount] = useState();
+  const [amount, setAmount] = useState("");
 
   const handleTap = () => {
     setExpanded(!expanded);

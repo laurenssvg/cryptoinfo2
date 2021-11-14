@@ -76,9 +76,9 @@ const Home = () => {
                   coin.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
                   coin.id.toLowerCase().includes(searchQuery.toLowerCase())
               )
-              .map((filteredCoin, index) => (
+              .map((filteredCoin) => (
                 <CoinCard
-                  key={index}
+                  key={filteredCoin.id}
                   coin={filteredCoin}
                   setMyCoins={setMyCoins}
                   myCoins={myCoins}
