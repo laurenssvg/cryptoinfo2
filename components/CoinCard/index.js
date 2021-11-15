@@ -7,6 +7,7 @@ import {
   HiCheck,
   HiLockClosed,
   HiLockOpen,
+  HiInformationCircle,
 } from "react-icons/hi";
 import { AnimatePresence, AnimateSharedLayout, motion } from "framer-motion";
 import { useState } from "react";
@@ -131,10 +132,22 @@ const CoinCard = ({ coin, setMyCoins, myCoins, filteredCoins }) => {
                     : "text-[#8a2323] dark:text-[#bd6b6b]"
                 }`}
               >
-                {formatPrice(amount * coin.current_price, 8)}
+                {formatPrice(amount * coin.current_price, 2)}
               </motion.div>
             )}
           </AnimatePresence>
+          <div
+            className={`absolute top-0 right-0 bg-transparent text-xl p-1 z-10 ${
+              coin.price_change_percentage_24h > 0
+                ? "bg-transparent text-[#124b1b] dark:text-[#87c07b]"
+                : "bg-transparent text-[#702626] dark:text-[#bd6b6b]"
+            } `}
+            onClick={(e) => {
+              e.stopPropagation();
+            }}
+          >
+            <HiInformationCircle />
+          </div>
           <motion.div className="flex justify-between">
             <div className="flex">
               <div className="w-14 h-14 relative">
