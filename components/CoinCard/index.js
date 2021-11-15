@@ -17,7 +17,6 @@ const CoinCard = ({ coin, setMyCoins, myCoins, filteredCoins }) => {
   const handleTap = () => {
     setExpanded(!expanded);
   };
-
   const confirmAmount = () => {
     const updatedCoins = myCoins.map((myCoin) =>
       myCoin.id === coin.id ? { ...myCoin, amount: amount } : myCoin
