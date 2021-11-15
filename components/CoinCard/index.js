@@ -5,16 +5,32 @@ import {
   HiMinus,
   HiPlus,
   HiCheck,
+  HiLockClosed,
+  HiLockOpen,
 } from "react-icons/hi";
 import { AnimatePresence, AnimateSharedLayout, motion } from "framer-motion";
 import { useState } from "react";
 
 const CoinCard = ({ coin, setMyCoins, myCoins, filteredCoins }) => {
   const [expanded, setExpanded] = useState(false);
-  const [amount, setAmount] = useState("");
+  const [amount, setAmount] = useState(() => {
+    const found = JSON.parse(localStorage.getItem("myCoins")).find(
+      (myCoin) => myCoin.id === coin.id
+    );
+    return found?.amount || "";
+  });
+  const [disabled, setDisabled] = useState(() => (amount ? true : false));
 
   const handleTap = () => {
     setExpanded(!expanded);
+  };
+
+  const confirmAmount = () => {
+    const updatedCoins = myCoins.map((myCoin) =>
+      myCoin.id === coin.id ? { ...myCoin, amount: amount } : myCoin
+    );
+    setMyCoins(updatedCoins);
+    setDisabled(!disabled);
   };
 
   const formatPrice = (price, maxDigits) => {
@@ -172,7 +188,7 @@ const CoinCard = ({ coin, setMyCoins, myCoins, filteredCoins }) => {
               {formatPrice(coin.current_price, 8)}
             </div>
           </motion.div>
-          {expanded && (
+          {expanded && addedToMyCoins(coin.name) && (
             <motion.div
               className="flex flex-col absolute inset-x-0 bottom-16"
               initial={"notExpanded"}
@@ -180,17 +196,35 @@ const CoinCard = ({ coin, setMyCoins, myCoins, filteredCoins }) => {
               variants={extraInfo}
             >
               <motion.input
-                className={`flex py-2 mx-auto rounded-lg spin-button-none ${
+                className={`flex py-2 relative mx-auto rounded-lg spin-button-none ${
                   coin.price_change_percentage_24h > 0
                     ? "dark:bg-[#ddeec8] bg-[#68a55b] placeholder-[#ddeec8] text-[#ddeec8] dark:placeholder-[#124b1b] dark:text-[#124b1b]"
                     : "dark:bg-[#c48585] bg-[#8a2f2f] placeholder-[#eec9c8] text-[#eec9c8] dark:placeholder-[#702626] dark:text-[#702626]"
                 } focus:outline-none text-center`}
                 placeholder="Enter amount"
                 type="number"
+                disabled={disabled}
                 value={amount}
                 onChange={(e) => setAmount(e.target.value)}
                 onClick={(e) => e.stopPropagation()}
               />
+              <button
+                className={`flex absolute right-32 mx-auto text-xl p-1 ${
+                  coin.price_change_percentage_24h > 0
+                    ? "dark:bg-[#ddeec8] bg-[#68a55b] placeholder-[#ddeec8] text-[#ddeec8] dark:placeholder-[#124b1b] dark:text-[#124b1b]"
+                    : "dark:bg-[#c48585] bg-[#8a2f2f] placeholder-[#eec9c8] text-[#eec9c8] dark:placeholder-[#702626] dark:text-[#702626]"
+                } rounded-md`}
+                onClick={(e) => {
+                  confirmAmount();
+                  e.stopPropagation();
+                }}
+              >
+                {disabled ? (
+                  <HiLockClosed className="text-3xl flex items-center" />
+                ) : (
+                  <HiLockOpen className="text-3xl flex items-center" />
+                )}
+              </button>
               <span className="flex mx-auto text-xl">=</span>
               <div
                 className={`flex text-xl font-semibold mx-auto ${
