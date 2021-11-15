@@ -195,36 +195,38 @@ const CoinCard = ({ coin, setMyCoins, myCoins, filteredCoins }) => {
               animate={"expanded"}
               variants={extraInfo}
             >
-              <motion.input
-                className={`flex py-2 relative mx-auto rounded-lg spin-button-none ${
-                  coin.price_change_percentage_24h > 0
-                    ? "dark:bg-[#ddeec8] bg-[#68a55b] placeholder-[#ddeec8] text-[#ddeec8] dark:placeholder-[#124b1b] dark:text-[#124b1b]"
-                    : "dark:bg-[#c48585] bg-[#8a2f2f] placeholder-[#eec9c8] text-[#eec9c8] dark:placeholder-[#702626] dark:text-[#702626]"
-                } focus:outline-none text-center`}
-                placeholder="Enter amount"
-                type="number"
-                disabled={disabled}
-                value={amount}
-                onChange={(e) => setAmount(e.target.value)}
-                onClick={(e) => e.stopPropagation()}
-              />
-              <button
-                className={`flex absolute right-32 mx-auto text-xl p-1 ${
-                  coin.price_change_percentage_24h > 0
-                    ? "dark:bg-[#ddeec8] bg-[#68a55b] placeholder-[#ddeec8] text-[#ddeec8] dark:placeholder-[#124b1b] dark:text-[#124b1b]"
-                    : "dark:bg-[#c48585] bg-[#8a2f2f] placeholder-[#eec9c8] text-[#eec9c8] dark:placeholder-[#702626] dark:text-[#702626]"
-                } rounded-md`}
-                onClick={(e) => {
-                  confirmAmount();
-                  e.stopPropagation();
-                }}
-              >
-                {disabled ? (
-                  <HiLockClosed className="text-3xl flex items-center" />
-                ) : (
-                  <HiLockOpen className="text-3xl flex items-center" />
-                )}
-              </button>
+              <div className={`flex absolute bottom-14 self-center`}>
+                <motion.input
+                  className={`${
+                    coin.price_change_percentage_24h > 0
+                      ? "dark:bg-[#ddeec8] bg-[#68a55b] placeholder-[#ddeec8] text-[#ddeec8] dark:placeholder-[#124b1b] dark:text-[#124b1b]"
+                      : "dark:bg-[#c48585] bg-[#8a2f2f] placeholder-[#eec9c8] text-[#eec9c8] dark:placeholder-[#702626] dark:text-[#702626]"
+                  } py-2 rounded-lg spin-button-none focus:outline-none text-center`}
+                  placeholder="Enter amount"
+                  type="number"
+                  disabled={disabled}
+                  value={amount}
+                  onChange={(e) => setAmount(e.target.value)}
+                  onClick={(e) => e.stopPropagation()}
+                />
+                <button
+                  className={`absolute text-xl p-1 right-0 ${
+                    coin.price_change_percentage_24h > 0
+                      ? "dark:bg-[#ddeec8] bg-[#68a55b] placeholder-[#ddeec8] text-[#ddeec8] dark:placeholder-[#124b1b] dark:text-[#124b1b]"
+                      : "dark:bg-[#c48585] bg-[#8a2f2f] placeholder-[#eec9c8] text-[#eec9c8] dark:placeholder-[#702626] dark:text-[#702626]"
+                  } rounded-md `}
+                  onClick={(e) => {
+                    confirmAmount();
+                    e.stopPropagation();
+                  }}
+                >
+                  {disabled ? (
+                    <HiLockClosed className="text-3xl" />
+                  ) : (
+                    <HiLockOpen className="text-3xl" />
+                  )}
+                </button>
+              </div>
               <span className="flex mx-auto text-xl">=</span>
               <div
                 className={`flex text-xl font-semibold mx-auto ${
