@@ -12,7 +12,12 @@ import { useState } from "react";
 const CoinCard = ({ coin, setMyCoins, myCoins, filteredCoins }) => {
   const [expanded, setExpanded] = useState(false);
   const [disabled, setDisabled] = useState(false);
-  const [amount, setAmount] = useState("");
+  const [amount, setAmount] = useState(() => {
+    const found = JSON.parse(localStorage.getItem("myCoins")).find(
+      (myCoin) => myCoin.id === coin.id
+    );
+    return found?.amount || "";
+  });
 
   const handleTap = () => {
     setExpanded(!expanded);
