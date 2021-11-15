@@ -11,10 +11,19 @@ import { useState } from "react";
 
 const CoinCard = ({ coin, setMyCoins, myCoins, filteredCoins }) => {
   const [expanded, setExpanded] = useState(false);
+  const [disabled, setDisabled] = useState(false);
   const [amount, setAmount] = useState("");
 
   const handleTap = () => {
     setExpanded(!expanded);
+  };
+
+  const confirmAmount = () => {
+    const updatedCoins = myCoins.map((myCoin) =>
+      myCoin.id === coin.id ? { ...myCoin, amount: amount } : myCoin
+    );
+    setMyCoins(updatedCoins);
+    setDisabled(!disabled);
   };
 
   const formatPrice = (price, maxDigits) => {
@@ -172,7 +181,7 @@ const CoinCard = ({ coin, setMyCoins, myCoins, filteredCoins }) => {
               {formatPrice(coin.current_price, 8)}
             </div>
           </motion.div>
-          {expanded && (
+          {expanded && addedToMyCoins(coin.name) && (
             <motion.div
               className="flex flex-col absolute inset-x-0 bottom-16"
               initial={"notExpanded"}
@@ -187,10 +196,20 @@ const CoinCard = ({ coin, setMyCoins, myCoins, filteredCoins }) => {
                 } focus:outline-none text-center`}
                 placeholder="Enter amount"
                 type="number"
+                disabled={disabled}
                 value={amount}
                 onChange={(e) => setAmount(e.target.value)}
                 onClick={(e) => e.stopPropagation()}
               />
+              <button
+                className="flex mx-auto text-xl"
+                onClick={(e) => {
+                  confirmAmount();
+                  e.stopPropagation();
+                }}
+              >
+                Confirm
+              </button>
               <span className="flex mx-auto text-xl">=</span>
               <div
                 className={`flex text-xl font-semibold mx-auto ${
