@@ -22,7 +22,6 @@ const card = {
     },
   },
   notExpanded: {
-    height: 130,
     transition: { duration: 0.125, type: "spring", damping: 10, mass: 0.6 },
   },
 };
@@ -91,10 +90,7 @@ const CardContentFull = ({
     <AnimatePresence>
       <motion.article
         layoutId="expandable"
-        animate={expanded ? "expanded" : "notExpanded"}
-        onClick={handleTap}
-        variants={card}
-        className={`p-4 absolute top-0 left-0 w-screen h-screen select-none cursor-pointer ${
+        className={`p-4 absolute top-0 left-0 w-full h-full select-none cursor-pointer ${
           coin.price_change_percentage_24h > 0
             ? "bg-[#ddeec8] dark:bg-[#1f3623]"
             : "bg-[#c48585] dark:bg-[#3d1515]"
