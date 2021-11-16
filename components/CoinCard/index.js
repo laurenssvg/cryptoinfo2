@@ -5,7 +5,6 @@ import CardContentFull from "../CardContentFull";
 
 const CoinCard = ({ coin, setMyCoins, myCoins, filteredCoins }) => {
   const [expanded, setExpanded] = useState(false);
-  const [disabled, setDisabled] = useState(() => (amount ? true : false));
   const [fullscreen, setFullscreen] = useState(false);
   const [amount, setAmount] = useState(() => {
     const found = JSON.parse(localStorage.getItem("myCoins")).find(
@@ -13,6 +12,7 @@ const CoinCard = ({ coin, setMyCoins, myCoins, filteredCoins }) => {
     );
     return found?.amount || "";
   });
+  const [disabled, setDisabled] = useState(() => (amount ? true : false));
 
   const handleTap = () => {
     setExpanded(!expanded);

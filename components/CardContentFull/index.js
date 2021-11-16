@@ -11,21 +11,6 @@ import {
   HiInformationCircle,
 } from "react-icons/hi";
 
-const card = {
-  expanded: {
-    height: 250,
-    transition: {
-      duration: 0.125,
-      type: "spring",
-      damping: 10,
-      mass: 0.6,
-    },
-  },
-  notExpanded: {
-    transition: { duration: 0.125, type: "spring", damping: 10, mass: 0.6 },
-  },
-};
-
 const stats = {
   expanded: {
     y: 120,
@@ -74,7 +59,6 @@ const formatPrice = (price, maxDigits) => {
 const CardContentFull = ({
   expanded,
   fullscreen,
-  handleTap,
   coin,
   amount,
   myCoins,
@@ -90,7 +74,8 @@ const CardContentFull = ({
     <AnimatePresence>
       <motion.article
         layoutId="expandable"
-        className={`p-4 absolute top-0 left-0 w-full h-full select-none cursor-pointer ${
+        onClick={() => setFullscreen(!fullscreen)}
+        className={`p-4 fixed top-0 left-0 w-full h-full select-none cursor-pointer ${
           coin.price_change_percentage_24h > 0
             ? "bg-[#ddeec8] dark:bg-[#1f3623]"
             : "bg-[#c48585] dark:bg-[#3d1515]"
