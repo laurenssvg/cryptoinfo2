@@ -90,7 +90,7 @@ const CardContentNormal = ({
   return (
     <AnimatePresence>
       <motion.article
-        layoutId="expandable"
+        layoutId="expandedCard"
         animate={expanded ? "expanded" : "notExpanded"}
         onClick={handleTap}
         variants={card}
@@ -123,7 +123,7 @@ const CardContentNormal = ({
             </motion.div>
           )}
         </AnimatePresence>
-        <div
+        <motion.div
           className={`absolute top-0 right-0 bg-transparent text-xl p-1 z-10 ${
             coin.price_change_percentage_24h > 0
               ? "bg-transparent text-[#569049] dark:text-[#87c07b]"
@@ -135,10 +135,10 @@ const CardContentNormal = ({
           }}
         >
           <HiInformationCircle />
-        </div>
+        </motion.div>
         <motion.div className="flex justify-between">
-          <div className="flex">
-            <div className="w-14 h-14 relative">
+          <motion.div className="flex">
+            <motion.div className="w-14 h-14 relative">
               <Image
                 className="flex rounded-lg"
                 src={coin.image}
@@ -146,9 +146,9 @@ const CardContentNormal = ({
                 objectFit="cover"
                 alt="coin image"
               />
-            </div>
+            </motion.div>
 
-            <div
+            <motion.div
               className={`flex text-lg font-semibold items-center pl-5 ${
                 coin.price_change_percentage_24h > 0
                   ? "text-[#569049] dark:text-[#87c07b]"
@@ -156,8 +156,8 @@ const CardContentNormal = ({
               } `}
             >
               {coin.name}
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
           <AnimatePresence>
             {addedToMyCoins(coin.name) && !filteredCoins ? (
               <motion.div
@@ -172,14 +172,14 @@ const CardContentNormal = ({
                   mass: 0.6,
                 }}
               >
-                <span className="flex bg-[#569049] rounded-md p-1 text-[#ddeec8]">
+                <motion.span className="flex bg-[#569049] rounded-md p-1 text-[#ddeec8]">
                   <HiCheck className="flex mt-0.5" />
                   Added to my coins
-                </span>
+                </motion.span>
               </motion.div>
             ) : null}
           </AnimatePresence>
-          <div
+          <motion.div
             className={`flex text-lg font-semibold items-center ${
               coin.price_change_percentage_24h > 0
                 ? "text-[#569049] dark:text-[#87c07b]"
@@ -187,7 +187,7 @@ const CardContentNormal = ({
             } `}
           >
             {formatPrice(coin.current_price, 8)}
-          </div>
+          </motion.div>
         </motion.div>
         {expanded && addedToMyCoins(coin.name) && (
           <motion.div
@@ -196,7 +196,7 @@ const CardContentNormal = ({
             animate={"expanded"}
             variants={extraInfo}
           >
-            <div className={`flex absolute bottom-14 self-center`}>
+            <motion.div className={`flex absolute bottom-14 self-center`}>
               <motion.input
                 className={`${
                   coin.price_change_percentage_24h > 0
@@ -210,7 +210,7 @@ const CardContentNormal = ({
                 onChange={(e) => setAmount(e.target.value)}
                 onClick={(e) => e.stopPropagation()}
               />
-              <button
+              <motion.button
                 className={`absolute text-xl p-1 right-0 ${
                   coin.price_change_percentage_24h > 0
                     ? "dark:bg-[#ddeec8] bg-[#68a55b] placeholder-[#ddeec8] text-[#ddeec8] dark:placeholder-[#124b1b] dark:text-[#124b1b]"
@@ -226,10 +226,10 @@ const CardContentNormal = ({
                 ) : (
                   <HiLockOpen className="text-3xl" />
                 )}
-              </button>
-            </div>
-            <span className="flex mx-auto text-xl">=</span>
-            <div
+              </motion.button>
+            </motion.div>
+            <motion.span className="flex mx-auto text-xl">=</motion.span>
+            <motion.div
               className={`flex text-xl font-semibold mx-auto ${
                 coin.price_change_percentage_24h > 0
                   ? "text-[#569049] dark:text-[#87c07b]"
@@ -239,7 +239,7 @@ const CardContentNormal = ({
               {amount
                 ? formatPrice(coin.current_price * amount, 2)
                 : `${formatPrice(0)}`}
-            </div>
+            </motion.div>
           </motion.div>
         )}
         <motion.div
@@ -247,7 +247,7 @@ const CardContentNormal = ({
           animate={!expanded ? "notExpanded" : "expanded"}
           variants={stats}
         >
-          <div
+          <motion.div
             className={`flex ${
               coin.price_change_percentage_24h > 0
                 ? "text-[#569049] dark:text-[#87c07b]"
@@ -259,7 +259,7 @@ const CardContentNormal = ({
               style: "percent",
               minimumFractionDigits: 2,
             })}
-          </div>
+          </motion.div>
           <motion.div
             initial={{ opacity: 0 }}
             animate={expanded ? "expanded" : "notExpanded"}
@@ -277,12 +277,12 @@ const CardContentNormal = ({
             className="flex items-center text-[#8a2323] dark:text-[#bd6b6b]"
           >
             <HiArrowDown className="text-[#8a2323] dark:text-[#bd6b6b]" />
-            <sup className="mr-1">24h</sup>
+            <motion.sup className="mr-1">24h</motion.sup>
             {formatPrice(coin.low_24h, 8)}
           </motion.div>
 
           {!filteredCoins && !addedToMyCoins(coin.name) ? (
-            <button className="flex items-center text-xl hover:scale-110 hover:transform duration-200 text-[#3a6331] dark:text-[#87c07b]">
+            <motion.button className="flex items-center text-xl hover:scale-110 hover:transform duration-200 text-[#3a6331] dark:text-[#87c07b]">
               <HiPlus
                 onClick={(e) => {
                   e.stopPropagation();
@@ -293,9 +293,9 @@ const CardContentNormal = ({
                   }
                 }}
               />
-            </button>
+            </motion.button>
           ) : (
-            <button className="object-cover flex items-center text-xl hover:scale-110 hover:transform duration-200 text-[#8a2323] dark:text-[#bd6b6b]">
+            <motion.button className="object-cover flex items-center text-xl hover:scale-110 hover:transform duration-200 text-[#8a2323] dark:text-[#bd6b6b]">
               <HiMinus
                 onClick={(e) => {
                   e.stopPropagation();
@@ -304,7 +304,7 @@ const CardContentNormal = ({
                   );
                 }}
               />
-            </button>
+            </motion.button>
           )}
         </motion.div>
       </motion.article>

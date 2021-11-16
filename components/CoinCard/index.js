@@ -1,4 +1,4 @@
-import { AnimateSharedLayout } from "framer-motion";
+import { AnimateSharedLayout, motion } from "framer-motion";
 import { useState } from "react";
 import CardContentNormal from "../CardContentNormal";
 import CardContentFull from "../CardContentFull";
@@ -57,13 +57,6 @@ const CoinCard = ({ coin, setMyCoins, myCoins, filteredCoins }) => {
           handleTap={handleTap}
           coin={coin}
           amount={amount}
-          myCoins={myCoins}
-          addedToMyCoins={addedToMyCoins}
-          filteredCoins={filteredCoins}
-          setMyCoins={setMyCoins}
-          disabled={disabled}
-          setAmount={setAmount}
-          confirmAmount={confirmAmount}
         />
       )}
     </AnimateSharedLayout>
