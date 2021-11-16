@@ -12,6 +12,7 @@ const CoinCard = ({ coin, setMyCoins, myCoins, filteredCoins }) => {
     );
     return found?.amount || "";
   });
+
   const [disabled, setDisabled] = useState(() => (amount ? true : false));
 
   const handleTap = () => {
