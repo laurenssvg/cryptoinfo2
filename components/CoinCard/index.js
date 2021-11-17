@@ -31,35 +31,31 @@ const CoinCard = ({ coin, setMyCoins, myCoins, filteredCoins }) => {
     setDisabled(!disabled);
   };
 
-  return (
-    <AnimateSharedLayout>
-      {!fullscreen ? (
-        <CardContentNormal
-          expanded={expanded}
-          fullscreen={fullscreen}
-          setFullscreen={setFullscreen}
-          handleTap={handleTap}
-          coin={coin}
-          amount={amount}
-          myCoins={myCoins}
-          addedToMyCoins={addedToMyCoins}
-          filteredCoins={filteredCoins}
-          setMyCoins={setMyCoins}
-          disabled={disabled}
-          setAmount={setAmount}
-          confirmAmount={confirmAmount}
-        />
-      ) : (
-        <CardContentFull
-          expanded={expanded}
-          fullscreen={fullscreen}
-          setFullscreen={setFullscreen}
-          handleTap={handleTap}
-          coin={coin}
-          amount={amount}
-        />
-      )}
-    </AnimateSharedLayout>
+  return !fullscreen ? (
+    <CardContentNormal
+      expanded={expanded}
+      fullscreen={fullscreen}
+      setFullscreen={setFullscreen}
+      handleTap={handleTap}
+      coin={coin}
+      amount={amount}
+      myCoins={myCoins}
+      addedToMyCoins={addedToMyCoins}
+      filteredCoins={filteredCoins}
+      setMyCoins={setMyCoins}
+      disabled={disabled}
+      setAmount={setAmount}
+      confirmAmount={confirmAmount}
+    />
+  ) : (
+    <CardContentFull
+      expanded={expanded}
+      fullscreen={fullscreen}
+      setFullscreen={setFullscreen}
+      handleTap={handleTap}
+      coin={coin}
+      amount={amount}
+    />
   );
 };
 

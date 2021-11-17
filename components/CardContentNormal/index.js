@@ -90,8 +90,8 @@ const CardContentNormal = ({
   return (
     <AnimatePresence>
       <motion.article
-        layoutId="expandedCard"
         animate={expanded ? "expanded" : "notExpanded"}
+        initial={false}
         onClick={handleTap}
         variants={card}
         className={`p-4 relative select-none cursor-pointer ${
@@ -100,29 +100,28 @@ const CardContentNormal = ({
             : "bg-[#c48585] dark:bg-[#3d1515]"
         } m-3 lg:m-2 rounded-lg shadow-lg`}
       >
-        <AnimatePresence>
-          {amount && !expanded && (
-            <motion.div
-              initial={{ opacity: 0, scale: 0.6 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.6 }}
-              transition={{
-                duration: 0.125,
-                type: "spring",
-                damping: 10,
-                mass: 0.6,
-                delay: 0.2,
-              }}
-              className={`flex absolute bottom-4 inset-x-0 justify-center font-semibold text-xl ${
-                coin.price_change_percentage_24h > 0
-                  ? "text-[#569049] dark:text-[#87c07b]"
-                  : "text-[#8a2323] dark:text-[#bd6b6b]"
-              }`}
-            >
-              {formatPrice(amount * coin.current_price, 2)}
-            </motion.div>
-          )}
-        </AnimatePresence>
+        {amount && !expanded && (
+          <motion.div
+            layout
+            initial={{ opacity: 0, scale: 0.6 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.6 }}
+            transition={{
+              duration: 0.125,
+              type: "spring",
+              damping: 10,
+              mass: 0.6,
+              delay: 0.2,
+            }}
+            className={`flex absolute bottom-4 inset-x-0 justify-center font-semibold text-xl ${
+              coin.price_change_percentage_24h > 0
+                ? "text-[#569049] dark:text-[#87c07b]"
+                : "text-[#8a2323] dark:text-[#bd6b6b]"
+            }`}
+          >
+            {formatPrice(amount * coin.current_price, 2)}
+          </motion.div>
+        )}
         <motion.div
           className={`absolute top-0 right-0 bg-transparent text-xl p-1 z-10 ${
             coin.price_change_percentage_24h > 0
@@ -158,27 +157,25 @@ const CardContentNormal = ({
               {coin.name}
             </motion.div>
           </motion.div>
-          <AnimatePresence>
-            {addedToMyCoins(coin.name) && !filteredCoins ? (
-              <motion.div
-                className="flex absolute inset-x-0 top-0 justify-center text-xs"
-                initial={{ opacity: 0, scale: 0.6 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.6 }}
-                transition={{
-                  duration: 0.125,
-                  type: "spring",
-                  damping: 10,
-                  mass: 0.6,
-                }}
-              >
-                <motion.span className="flex bg-[#569049] rounded-md p-1 text-[#ddeec8]">
-                  <HiCheck className="flex mt-0.5" />
-                  Added to my coins
-                </motion.span>
-              </motion.div>
-            ) : null}
-          </AnimatePresence>
+          {addedToMyCoins(coin.name) && !filteredCoins ? (
+            <motion.div
+              className="flex absolute inset-x-0 top-0 justify-center text-xs"
+              initial={{ opacity: 0, scale: 0.6 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.6 }}
+              transition={{
+                duration: 0.125,
+                type: "spring",
+                damping: 10,
+                mass: 0.6,
+              }}
+            >
+              <motion.span className="flex bg-[#569049] rounded-md p-1 text-[#ddeec8]">
+                <HiCheck className="flex mt-0.5" />
+                Added to my coins
+              </motion.span>
+            </motion.div>
+          ) : null}{" "}
           <motion.div
             className={`flex text-lg font-semibold items-center ${
               coin.price_change_percentage_24h > 0
@@ -244,6 +241,7 @@ const CardContentNormal = ({
         )}
         <motion.div
           className="flex justify-between pt-5"
+          initial={false}
           animate={!expanded ? "notExpanded" : "expanded"}
           variants={stats}
         >
@@ -267,7 +265,7 @@ const CardContentNormal = ({
             className={`flex items-center text-[#406e35] dark:text-[#87c07b]`}
           >
             <HiArrowUp className="text-[#406e35] dark:text-[#87c07b]" />
-            <sup className="mr-1">24h</sup>
+            <motion.sup className="mr-1">24h</motion.sup>
             {formatPrice(coin.high_24h, 8)}
           </motion.div>
           <motion.div
