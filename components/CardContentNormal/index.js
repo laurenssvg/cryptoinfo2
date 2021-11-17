@@ -102,7 +102,6 @@ const CardContentNormal = ({
       >
         {amount && !expanded && (
           <motion.div
-            layout
             initial={{ opacity: 0, scale: 0.6 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.6 }}
