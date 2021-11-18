@@ -131,7 +131,7 @@ const CoinCard = ({ coin, setMyCoins, myCoins, filteredCoins }) => {
                     : "text-[#8a2323] dark:text-[#bd6b6b]"
                 }`}
               >
-                {formatPrice(amount * coin.current_price, 8)}
+                {formatPrice(amount * coin.current_price, 2)}
               </motion.div>
             )}
           </AnimatePresence>
