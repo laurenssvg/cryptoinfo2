@@ -5,6 +5,7 @@ import useGlobalData from "../hooks/useGlobalData";
 import CoinCard from "../components/CoinCard";
 import SearchBar from "../components/SearchBar";
 import { useDebounce } from "use-debounce";
+import { LayoutGroup } from "framer-motion";
 
 const Home = () => {
   const [myCoins, setMyCoins] = useState(() => {
@@ -83,13 +84,14 @@ const Home = () => {
                   coin.id.toLowerCase().includes(debouncedQuery.toLowerCase())
               )
               .map((filteredCoin) => (
-                <CoinCard
-                  key={filteredCoin.id}
-                  coin={filteredCoin}
-                  setMyCoins={setMyCoins}
-                  myCoins={myCoins}
-                  filteredCoins={filteredCoins}
-                />
+                <LayoutGroup key={filteredCoin.id}>
+                  <CoinCard
+                    coin={filteredCoin}
+                    setMyCoins={setMyCoins}
+                    myCoins={myCoins}
+                    filteredCoins={filteredCoins}
+                  />
+                </LayoutGroup>
               ))}
           </div>
         </div>

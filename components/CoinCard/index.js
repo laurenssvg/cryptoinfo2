@@ -1,4 +1,3 @@
-import { AnimateSharedLayout, motion } from "framer-motion";
 import { useState } from "react";
 import CardContentNormal from "../CardContentNormal";
 import CardContentFull from "../CardContentFull";

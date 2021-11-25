@@ -1,4 +1,4 @@
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import Image from "next/image";
 import { HiX } from "react-icons/hi";
 import useCoinInfo from "../../hooks/useCoinInfo";
@@ -12,14 +12,9 @@ const formatPrice = (price, maxDigits) => {
   });
 };
 
-const CardContentFull = ({
-  expanded,
-  fullscreen,
-  coin,
-  amount,
-  setFullscreen,
-}) => {
-  const { coinInfo } = useCoinInfo(coin.id);
+const CardContentFull = ({ fullscreen, coin, setFullscreen }) => {
+  const { coinInfo, isLoading } = useCoinInfo(coin.id);
+  const description = coinInfo?.description.en.split(". ", 1);
 
   return (
     <motion.article
@@ -32,27 +27,6 @@ const CardContentFull = ({
           : "bg-[#c48585] dark:bg-[#3d1515]"
       } rounded-lg shadow-lg z-50`}
     >
-      {amount && !expanded && (
-        <motion.div
-          initial={{ opacity: 0, scale: 0.6 }}
-          animate={{ opacity: 1, scale: 1 }}
-          exit={{ opacity: 0, scale: 0.6 }}
-          transition={{
-            duration: 0.125,
-            type: "spring",
-            damping: 10,
-            mass: 0.6,
-            delay: 0.2,
-          }}
-          className={`flex absolute bottom-4 inset-x-0 justify-center font-semibold text-xl ${
-            coin.price_change_percentage_24h > 0
-              ? "text-[#569049] dark:text-[#87c07b]"
-              : "text-[#8a2323] dark:text-[#bd6b6b]"
-          }`}
-        >
-          {formatPrice(amount * coin.current_price, 2)}
-        </motion.div>
-      )}
       <motion.div
         className={`absolute top-0 right-0 bg-transparent text-3xl p-1 z-10 ${
           coin.price_change_percentage_24h > 0
@@ -96,6 +70,15 @@ const CardContentFull = ({
           {formatPrice(coin.current_price, 8)}
         </motion.div>
       </motion.div>
+      {description && !isLoading && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1, transition: { delay: 0.5 } }}
+          className="flex text-center justify-center"
+        >
+          {description}.
+        </motion.div>
+      )}
     </motion.article>
   );
 };
