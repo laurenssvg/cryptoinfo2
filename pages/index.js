@@ -5,7 +5,7 @@ import useGlobalData from "../hooks/useGlobalData";
 import CoinCard from "../components/CoinCard";
 import SearchBar from "../components/SearchBar";
 import { useDebounce } from "use-debounce";
-import { LayoutGroup } from "framer-motion";
+import { motion } from "framer-motion";
 
 const Home = () => {
   const [myCoins, setMyCoins] = useState(() => {
@@ -74,7 +74,10 @@ const Home = () => {
               maximumFractionDigits: 0,
             })}
           </div>
-          <div className="lg:grid lg:grid-cols-2 lg:grid-flow-row">
+          <motion.div
+            layout
+            className="lg:grid lg:grid-cols-2 lg:grid-flow-row"
+          >
             {(filteredCoins ? filteredCoins : coins)
               .filter(
                 (coin) =>
@@ -84,16 +87,15 @@ const Home = () => {
                   coin.id.toLowerCase().includes(debouncedQuery.toLowerCase())
               )
               .map((filteredCoin) => (
-                <LayoutGroup key={filteredCoin.id}>
-                  <CoinCard
-                    coin={filteredCoin}
-                    setMyCoins={setMyCoins}
-                    myCoins={myCoins}
-                    filteredCoins={filteredCoins}
-                  />
-                </LayoutGroup>
+                <CoinCard
+                  key={filteredCoin.id}
+                  coin={filteredCoin}
+                  setMyCoins={setMyCoins}
+                  myCoins={myCoins}
+                  filteredCoins={filteredCoins}
+                />
               ))}
-          </div>
+          </motion.div>
         </div>
       </div>
     );

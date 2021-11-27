@@ -2,6 +2,10 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import { HiX } from "react-icons/hi";
 import useCoinInfo from "../../hooks/useCoinInfo";
+import useCoinPrices from "../../hooks/useCoinPrices";
+import parse from "html-react-parser";
+import { LineChart, Line } from "recharts";
+import { useEffect, useState } from "react";
 
 const formatPrice = (price, maxDigits) => {
   return price.toLocaleString("en-GB", {
@@ -14,7 +18,26 @@ const formatPrice = (price, maxDigits) => {
 
 const CardContentFull = ({ fullscreen, coin, setFullscreen }) => {
   const { coinInfo, isLoading } = useCoinInfo(coin.id);
-  const description = coinInfo?.description.en.split(". ", 1);
+  const { coinPrices } = useCoinPrices(coin.id);
+  const [priceData, setPriceData] = useState([]);
+  const description = coinInfo?.description.en.split(". ", 1).toLocaleString();
+
+  const transformArrayOfArrays = (source, ...names) => {
+    const defaultName = (i) => "field" + i;
+    return source.map((a) => {
+      return a.reduce((r, v, i) => {
+        r[i < names.length ? names[i] : defaultName(i)] = v;
+        return r;
+      }, {});
+    });
+  };
+
+  useEffect(() => {
+    if (coinPrices) {
+      const prices = transformArrayOfArrays(coinPrices.prices, "time", "price");
+      setPriceData(prices);
+    }
+  }, []);
 
   return (
     <motion.article
@@ -41,7 +64,10 @@ const CardContentFull = ({ fullscreen, coin, setFullscreen }) => {
         <HiX />
       </motion.div>
       <motion.div className="flex flex-col justify-between mt-10 items-center">
-        <motion.div className="w-14 h-14 relative">
+        <motion.div
+          className="w-14 h-14 relative"
+          layoutId={`image${coin.name}`}
+        >
           <Image
             className="flex rounded-lg"
             src={coin.image}
@@ -52,6 +78,7 @@ const CardContentFull = ({ fullscreen, coin, setFullscreen }) => {
         </motion.div>
 
         <motion.div
+          layoutId={`name${coin.name}`}
           className={`flex text-4xl font-semibold items-center ${
             coin.price_change_percentage_24h > 0
               ? "text-[#569049] dark:text-[#87c07b]"
@@ -61,6 +88,8 @@ const CardContentFull = ({ fullscreen, coin, setFullscreen }) => {
           {coin.name}
         </motion.div>
         <motion.div
+          layout
+          layoutId={`price${coin.name}`}
           className={`flex text-lg font-semibold items-center ${
             coin.price_change_percentage_24h > 0
               ? "text-[#569049] dark:text-[#87c07b]"
@@ -76,9 +105,14 @@ const CardContentFull = ({ fullscreen, coin, setFullscreen }) => {
           animate={{ opacity: 1, transition: { delay: 0.5 } }}
           className="flex text-center justify-center"
         >
-          {description}.
+          {parse(description)}.
         </motion.div>
       )}
+      <motion.div layout className="flex justify-center">
+        <LineChart width={500} height={500} data={priceData}>
+          <Line type="basic" dataKey="price" />
+        </LineChart>
+      </motion.div>
     </motion.article>
   );
 };

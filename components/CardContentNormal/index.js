@@ -137,7 +137,10 @@ const CardContentNormal = ({
       </motion.div>
       <motion.div className="flex justify-between">
         <motion.div className="flex">
-          <motion.div className="w-14 h-14 relative">
+          <motion.div
+            className="w-14 h-14 relative"
+            layoutId={`image${coin.name}`}
+          >
             <Image
               className="flex rounded-lg"
               src={coin.image}
@@ -148,6 +151,7 @@ const CardContentNormal = ({
           </motion.div>
 
           <motion.div
+            layoutId={`name${coin.name}`}
             className={`flex text-lg font-semibold items-center pl-5 ${
               coin.price_change_percentage_24h > 0
                 ? "text-[#569049] dark:text-[#87c07b]"
@@ -177,6 +181,8 @@ const CardContentNormal = ({
           </motion.div>
         ) : null}{" "}
         <motion.div
+          layout
+          layoutId={`price${coin.name}`}
           className={`flex text-lg font-semibold items-center ${
             coin.price_change_percentage_24h > 0
               ? "text-[#569049] dark:text-[#87c07b]"
