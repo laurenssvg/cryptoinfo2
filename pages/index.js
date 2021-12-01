@@ -5,6 +5,7 @@ import useGlobalData from "../hooks/useGlobalData";
 import CoinCard from "../components/CoinCard";
 import SearchBar from "../components/SearchBar";
 import { useDebounce } from "use-debounce";
+import { motion } from "framer-motion";
 
 const Home = () => {
   const [myCoins, setMyCoins] = useState(() => {
@@ -73,7 +74,10 @@ const Home = () => {
               maximumFractionDigits: 0,
             })}
           </div>
-          <div className="lg:grid lg:grid-cols-2 lg:grid-flow-row">
+          <motion.div
+            layout
+            className="lg:grid lg:grid-cols-2 lg:grid-flow-row"
+          >
             {(filteredCoins ? filteredCoins : coins)
               .filter(
                 (coin) =>
@@ -91,7 +95,7 @@ const Home = () => {
                   filteredCoins={filteredCoins}
                 />
               ))}
-          </div>
+          </motion.div>
         </div>
       </div>
     );
