@@ -108,11 +108,6 @@ const CardContentFull = ({ fullscreen, coin, setFullscreen }) => {
           {parse(description)}.
         </motion.div>
       )}
-      <motion.div layout className="flex justify-center">
-        <LineChart width={500} height={500} data={priceData}>
-          <Line type="basic" dataKey="price" />
-        </LineChart>
-      </motion.div>
     </motion.article>
   );
 };

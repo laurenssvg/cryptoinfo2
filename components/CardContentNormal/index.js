@@ -122,7 +122,7 @@ const CardContentNormal = ({
           {formatPrice(amount * coin.current_price, 2)}
         </motion.div>
       )}
-      <motion.div
+      {/* <motion.div
         className={`absolute top-0 right-0 bg-transparent text-xl p-1 z-10 ${
           coin.price_change_percentage_24h > 0
             ? "bg-transparent text-[#569049] dark:text-[#87c07b]"
@@ -134,7 +134,7 @@ const CardContentNormal = ({
         }}
       >
         <HiInformationCircle />
-      </motion.div>
+      </motion.div> */}
       <motion.div className="flex justify-between">
         <motion.div className="flex">
           <motion.div
