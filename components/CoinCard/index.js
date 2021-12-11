@@ -34,7 +34,7 @@ const CoinCard = ({ coin, setMyCoins, myCoins, filteredCoins }) => {
   };
 
   const formatPrice = (price, maxDigits) => {
-    return price.toLocaleString("en-GB", {
+    return price?.toLocaleString("en-GB", {
       style: "currency",
       currency: "EUR",
       minimumFractionDigits: 2,
